@@ -14,6 +14,7 @@
     "@heroicons/react": "^2.1.5",
     "@tanstack/react-query": "^5.51.21",
     "axios": "^1.7.3",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.3.21",
     "helmet": "^7.1.0",
     "install": "^0.13.0",
