@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; // Importing
 
 import useReactQuery from '../../hooks/useReactQuery'; // Custom hook for React Query
 import UserProfileNav from '../UserProfileNav'; // User profile navigation component
+import Button from '../ui/Button';
 
 const Navbar = () => {
   // State to manage the open/close state of the mobile menu
@@ -82,18 +83,12 @@ const Navbar = () => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-5">
           {isLoggedIn ? (
             <div className="space-x-5 ml-6">
-              <Link
-                to={'/sign-in'}
-                className="rounded-lg font-semibold h-10 text-primary-700 border border-primary-700 bg-transparent focus:outline-none px-10 py-3 duration-200"
-              >
-                Login
-              </Link>
-              <Link
-                to={'/sign-up'}
-                className="rounded-lg font-semibold h-10 text-pure-white bg-primary-800 focus:outline-none px-10 py-3 duration-200"
-              >
-                Register
-              </Link>
+              <Button width={'md'} variant={'outline'}>
+                <Link to={'/sign-in'}>Login</Link>
+              </Button>
+              <Button width={'md'} variant={'primary'}>
+                <Link to={'/sign-up'}>Sign Up</Link>
+              </Button>
             </div>
           ) : (
             <div>

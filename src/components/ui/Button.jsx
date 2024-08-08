@@ -45,7 +45,7 @@ const Button = ({
     primary: `bg-primary-700 text-neutral-50 ${
       disabled ? 'bg-neutral-500 text-neutral-200' : ''
     }`, // Primary button with different styles when disabled
-    outline: `bg-transparent text-neutral-800 border border-primary-700 ${
+    outline: `bg-transparent text-primary-700 border border-primary-700 ${
       disabled ? 'text-neutral-600 border border-neutral-500' : ''
     }`, // Outline button with different styles when disabled
     text: `bg-transparent text-primary-700 underline ${
