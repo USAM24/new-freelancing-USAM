@@ -30,7 +30,7 @@ import classNames from 'classnames';
  * @returns {JSX.Element} The rendered button component.
  */
 const Button = ({
-  className = 'py-[10px] px-10 rounded-[10px] font-semibold tracking-[0.32px]', // Default classes for styling
+  className = 'py-[10px] px-10 rounded-[10px] font-semibold', // Default classes for styling
   width = 'sm', // Default width size
   variant = 'primary', // Default button variant
   type = 'button', // Default button type

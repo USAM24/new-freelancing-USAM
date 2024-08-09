@@ -38,7 +38,7 @@ const Navbar = () => {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:py-4 lg:px-8"
       >
         {/* Logo section */}
-        <div className="flex lg:flex-1">
+        <div className="flex">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img
@@ -80,9 +80,9 @@ const Navbar = () => {
         </PopoverGroup>
 
         {/* Desktop authentication buttons */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end space-x-5">
+        <div className="hidden lg:flex lg:justify-end space-x-5">
           {isLoggedIn ? (
-            <div className="space-x-5 ml-6">
+            <div className="space-x-5">
               <Button width={'md'} variant={'outline'}>
                 <Link to={'/sign-in'}>Login</Link>
               </Button>

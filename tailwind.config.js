@@ -45,12 +45,8 @@ export default {
           black: '#000000',
         },
       },
-      backgroundColor: {
-        'teal-Nav': '#F6FAFB',
-        'green-button': '#20B486',
-      },
-      textColor: {
-        'green-text': '#56BC80',
+      dropShadow: {
+        businessman: '0px 4px 4px rgba(0, 0, 0, 0.25)',
       },
     },
   },
