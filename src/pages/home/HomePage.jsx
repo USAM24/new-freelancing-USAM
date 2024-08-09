@@ -1,10 +1,11 @@
 import {
   FreelancerCategories,
   HeroSection,
+  HowItWorks,
   TrustedBySection,
 } from '../../components';
-import { categories, trustedByData } from '../../data';
-
+import { categories, howItWorkdTtems, trustedByData } from '../../data';
+import HowItWork from '../../assets/HowItWork.png';
 const HomePage = () => {
   return (
     <main>
@@ -21,6 +22,11 @@ const HomePage = () => {
         </div>
         <FreelancerCategories categories={categories} />
       </div>
+      <HowItWorks
+        title={'How a USAM helps you get your work'}
+        data={howItWorkdTtems}
+        image={HowItWork}
+      />
     </main>
   );
 };

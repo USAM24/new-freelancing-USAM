@@ -23,3 +23,21 @@ export const categories = [
   { id: 7, title: 'Sales & Marketing', icon: '/src/assets/sales.svg' },
   { id: 8, title: 'Accounting & Finance', icon: '/src/assets/accounting.svg' },
 ];
+
+export const howItWorkdTtems = [
+  {
+    title: 'The best quality for work in a short time',
+    description:
+      'We carefully select high-caliber professionals who excel at producing exceptional results swiftly, enabling you to meet your project goals without compromising on quality.',
+  },
+  {
+    title: 'Pay comfortably and securely',
+    description:
+      'Experience hassle-free payments on our freelancing platform, where you can pay for services confidently and securely.',
+  },
+  {
+    title: 'Guarantee your rights',
+    description:
+      "We have policies in place to protect freelancers' rights, including fair payment practices, dispute resolution mechanisms, and clear terms and conditions.",
+  },
+];
