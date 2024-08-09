@@ -30,7 +30,7 @@ import classNames from 'classnames';
  * @returns {JSX.Element} The rendered button component.
  */
 const Button = ({
-  className = 'py-[10px] px-10 rounded-[10px] font-semibold tracking-[0.32px]', // Default classes for styling
+  className = 'py-[10px] px-10 rounded-[10px] font-semibold', // Default classes for styling
   width = 'sm', // Default width size
   variant = 'primary', // Default button variant
   type = 'button', // Default button type
@@ -42,14 +42,18 @@ const Button = ({
 }) => {
   // Define classes for different variants
   const variantClasses = {
-    primary: `bg-primary-700 text-neutral-50 ${
-      disabled ? 'bg-neutral-500 text-neutral-200' : ''
+    primary: `${
+      disabled
+        ? 'bg-neutral-500 text-neutral-200'
+        : 'bg-primary-700 text-neutral-50'
     }`, // Primary button with different styles when disabled
-    outline: `bg-transparent text-neutral-800 border border-primary-700 ${
-      disabled ? 'text-neutral-600 border border-neutral-500' : ''
+    outline: `bg-transparent border-2 ${
+      disabled
+        ? 'text-neutral-600 border-neutral-500'
+        : 'text-primary-700 border-primary-700'
     }`, // Outline button with different styles when disabled
-    text: `bg-transparent text-primary-700 underline ${
-      disabled ? 'text-neutral-600' : ''
+    text: `bg-transparent underline ${
+      disabled ? 'text-neutral-600' : 'text-primary-700 '
     }`, // Text button with different styles when disabled
   };
 
@@ -74,7 +78,7 @@ const Button = ({
 
   // Render the button element with the calculated classes and passed props
   return (
-    <button className={buttonClass} type={type} {...props}>
+    <button className={buttonClass} type={type} {...props} disabled={disabled}>
       {children}
     </button>
   );

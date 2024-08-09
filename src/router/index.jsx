@@ -23,6 +23,7 @@ const router = createBrowserRouter(
         <Route path="market-place" element={<MarketPlacePage />} />
         <Route path="find-freelancers" element={<FindFreelancersPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
+        <Route path="categories/:id" />
       </Route>
     </>
   )
