@@ -1,7 +1,7 @@
 export const trustedByData = [
   {
     icon: '/src/assets/google.svg',
-    company: 'Goggle',
+    company: 'Google',
   },
   {
     icon: '/src/assets/paypal.svg',
