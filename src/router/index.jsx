@@ -12,6 +12,7 @@ import {
   SigninPage,
   SignupPage,
 } from '../pages';
+import ProfilePage from '../pages/Profile/[id]';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         <Route path="find-freelancers" element={<FindFreelancersPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
         <Route path="categories/:id" />
+        <Route path="profile/:id" element={<ProfilePage/>} />
       </Route>
     </>
   )
