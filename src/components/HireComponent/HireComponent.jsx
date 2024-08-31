@@ -39,6 +39,8 @@ const HireComponent = () => {
             >
                 {({ setFieldValue }) => (
                     <Form>
+                    <div className='grid grid-cols-2 gap-4'>
+                        <div>
                         {/* Client Information */}
                         <div className="mb-4">
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
@@ -72,6 +74,7 @@ const HireComponent = () => {
                             />
                             <ErrorMessage name="jobTitle" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
+                        
                         <div className="mb-4">
                             <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700">Project Description</label>
                             <Field
@@ -93,7 +96,8 @@ const HireComponent = () => {
                             />
                             <ErrorMessage name="deadline" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
-
+                        </div>
+                        <div>
                         {/* Budget */}
                         <div className="mb-4">
                             <label htmlFor="budget" className="block text-sm font-medium text-gray-700">Proposed Budget</label>
@@ -119,7 +123,7 @@ const HireComponent = () => {
                         </div>
 
                         {/* Attachments */}
-                        <div className="mb-4">
+                        <div className="mb-6">
                             <label htmlFor="attachments" className="block text-sm font-medium text-gray-700">Upload Files (Optional)</label>
                             <input
                                 type="file"
@@ -143,12 +147,17 @@ const HireComponent = () => {
                         </div>
 
                         {/* Submit Button */}
+                        <div className="mb-4">
+                        <label htmlFor="submit" className="block text-sm font-medium text-gray-700">Send Your Request</label>
                         <button
                             type="submit"
-                            className="w-full px-4 py-2 bg-[#037C6A] text-white font-bold rounded-md shadow-sm hover:bg-[#138C6A] focus:outline-none focus:shadow-outline"
+                            className="w-full mt-2 px-4 py-2 bg-[#037C6A] text-white font-bold rounded-md shadow-sm hover:bg-[#138C6A] focus:outline-none focus:shadow-outline"
                         >
                             Submit
                         </button>
+                        </div>
+                        </div>
+                        </div>
                     </Form>
                 )}
             </Formik>

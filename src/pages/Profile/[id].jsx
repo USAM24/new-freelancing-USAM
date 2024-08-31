@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import profile from "../../assets/profile.png";
 import Stars from "../../components/Stars/Stars";
 import ProfileComponent from "../../components/ProfileComponent/ProfileComponent";
 import PortfolioComponent from "../../components/PortfolioComponent/PortfolioComponent";
 import HireComponent from "../../components/HireComponent/HireComponent";
+
 const ProfilePage = () => {
   const [page, setPage] = useState("Profile");
   const User = {
@@ -12,6 +14,27 @@ const ProfilePage = () => {
     country: "Egypt",
     payRate: 5,
     rating: 3.5,
+  };
+
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      y: 50,
+    },
+    in: {
+      opacity: 1,
+      y: 0,
+    },
+    out: {
+      opacity: 0,
+      y: -50,
+    },
+  };
+
+  const pageTransition = {
+    type: "tween",
+    ease: "easeInOut",
+    duration: 0.5,
   };
 
   return (
@@ -23,7 +46,7 @@ const ProfilePage = () => {
         <h4 className="px-8">{User.name}</h4>
         <h4 className="px-8">{User.category}</h4>
         <h4 className="px-8">{User.country}</h4>
-        <h4 className="px-8">Rate:{User.payRate}$/hr</h4>
+        <h4 className="px-8">Rate: {User.payRate}$/hr</h4>
         <h4 className="px-8">
           <Stars rating={User.rating} />
         </h4>
@@ -35,8 +58,8 @@ const ProfilePage = () => {
             className={`px-4 relative ${
               page === "Profile"
                 ? "text-[#037C6A] font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-emerald-600"
-                : "hover:text-[#037C6A] hover:font-medium hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:right-0 hover:after:bottom-0 hover:after:h-[2px] hover:after:bg-emerald-600"
-            } transition duration-300`}
+                : "hover:text-[#037C6A] hover:font-medium hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:right-0 hover:after:bottom-0 hover:after:h-[2px] hover:after:bg-emerald-600 transition duration-300"
+            }`}
           >
             Profile
           </button>
@@ -46,8 +69,8 @@ const ProfilePage = () => {
             className={`px-4 relative ${
               page === "Portfolio"
                 ? "text-[#037C6A] font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-emerald-600"
-                : "hover:text-[#037C6A] hover:font-medium hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:right-0 hover:after:bottom-0 hover:after:h-[2px] hover:after:bg-emerald-600"
-            } transition duration-300`}
+                : "hover:text-[#037C6A] hover:font-medium hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:right-0 hover:after:bottom-0 hover:after:h-[2px] hover:after:bg-emerald-600 transition duration-300"
+            } `}
           >
             Portfolio
           </button>
@@ -60,11 +83,44 @@ const ProfilePage = () => {
           </button>
         </div>
         <div className="bg-[#D9D9D9]">
-          {page === "Profile" && <ProfileComponent />}
-
-          {page === "Portfolio" && <PortfolioComponent />}
-
-          {page === "Hire" && <HireComponent />}
+          <AnimatePresence mode='wait'>
+            {page === "Profile" && (
+              <motion.div
+                key="Profile"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <ProfileComponent />
+              </motion.div>
+            )}
+            {page === "Portfolio" && (
+              <motion.div
+                key="Portfolio"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <PortfolioComponent />
+              </motion.div>
+            )}
+            {page === "Hire" && (
+              <motion.div
+                key="Hire"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <HireComponent />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
