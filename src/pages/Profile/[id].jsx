@@ -9,8 +9,10 @@ import HireComponent from "../../components/HireComponent/HireComponent";
 const ProfilePage = () => {
   const [page, setPage] = useState("Profile");
   const User = {
+    id: 9,
     name: "Mohamed Ahmed",
-    category: "UI UX Design",
+    job: "Web Developer",
+    category: "Development & IT",
     country: "Egypt",
     payRate: 5,
     rating: 3.5,
@@ -45,6 +47,7 @@ const ProfilePage = () => {
       <div className="flex flex-row justify-center align-center">
         <h4 className="px-8">{User.name}</h4>
         <h4 className="px-8">{User.category}</h4>
+        <h4 className="px-8">{User.job}</h4>
         <h4 className="px-8">{User.country}</h4>
         <h4 className="px-8">Rate: {User.payRate}$/hr</h4>
         <h4 className="px-8">

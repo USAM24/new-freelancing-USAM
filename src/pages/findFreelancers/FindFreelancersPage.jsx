@@ -5,7 +5,8 @@ import FreelancerIcon from "../../components/FreelancerIcon/FreelancerIcon";
 import { useState } from "react";
 
 const FindFreelancersPage = () => {
-  const [checkedCategories,setCheckedCategories] = useState(["All"]);
+  const [checkedCategories, setCheckedCategories] = useState(["All"]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = [
     "All",
@@ -17,6 +18,7 @@ const FindFreelancersPage = () => {
     "Engineering",
     "Writing & Translation"
   ];
+
   const freelancers = [
     {
       id: 1,
@@ -116,25 +118,38 @@ const FindFreelancersPage = () => {
           <SearchIcon className="m-2 text-[#777777]" />
           <input
             type="text"
-            placeholder="Search For Freelancer"
+            placeholder="Search For Freelancer By Job"
             className="p-2 w-[90%] focus:outline-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
           />
         </div>
       </div>
       <div className="grid grid-cols-[1fr_3fr]">
         <div className="bg-[#D1FAF4] h-full p-6 rounded-lg">
           <ul className="flex flex-col">
-            {categories.map((category,index)=>(
-              <CheckListItem value={category} key={index}
-              checked={checkedCategories.includes(category)}
-                onChange={() => handleCategoryChange(category)} />
+            {categories.map((category, index) => (
+              <CheckListItem
+                value={category}
+                key={index}
+                checked={checkedCategories.includes(category)}
+                onChange={() => handleCategoryChange(category)}
+              />
             ))}
           </ul>
         </div>
         <div className="flex flex-row flex-wrap">
-          {freelancers.filter((freelancer) => checkedCategories.includes(freelancer.category) || checkedCategories.includes("All")).map((freelancer,index)=>(
-            <FreelancerIcon freelancer={freelancer} key={index}/>
-          ))}
+          {freelancers
+            .filter(
+              (freelancer) =>
+                (checkedCategories.includes(freelancer.category) ||
+                  checkedCategories.includes("All")) &&
+                (freelancer.name.toLowerCase().includes(searchQuery) ||
+                  freelancer.job.toLowerCase().includes(searchQuery))
+            )
+            .map((freelancer, index) => (
+              <FreelancerIcon freelancer={freelancer} key={index} />
+            ))}
         </div>
       </div>
     </div>

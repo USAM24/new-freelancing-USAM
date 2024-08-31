@@ -11,11 +11,12 @@ const FreelancerIcon = ({ freelancer }) => {
         <img
           src={profile}
           alt="profile"
-          className="p-2 w-20 h-20 rounded-full object-cover"
+          className="p-2 w-24 h-24 rounded-full object-cover"
         />
         <div className="p-2 flex-1">
           <h3 className="font-semibold">{freelancer.name}</h3>
-          <h4 className="text-[#797987]">{freelancer.category}</h4>
+          <h4 className="text-[#797987] text-sm">{freelancer.category}</h4>
+          <h4 className="text-[#797987] text-sm">{freelancer.job}</h4>
           <Stars rating={freelancer.rating}/>
         </div>
       </div>
