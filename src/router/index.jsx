@@ -13,6 +13,8 @@ import {
   SignupPage,
 } from '../pages';
 import PostJob from "../pages/PostJob/PostJob"
+import ProfilePage from '../pages/Profile/[id]';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
         <Route path="find-freelancers" element={<FindFreelancersPage />} />
         <Route path="contact-us" element={<ContactUsPage />} />
         <Route path="post-job" element={<PostJob/>} />
+        <Route path="categories/:id" />
+        <Route path="profile/:id" element={<ProfilePage/>} />
       </Route>
     </>
   )
