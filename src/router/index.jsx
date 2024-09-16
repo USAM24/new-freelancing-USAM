@@ -8,12 +8,16 @@ import {
   ContactUsPage,
   FindFreelancersPage,
   HomePage,
+  // FindJobPage,
   MarketPlacePage,
   SigninPage,
   SignupPage,
 } from '../pages';
 import PostJob from "../pages/PostJob/PostJob"
 import ProfilePage from '../pages/Profile/[id]';
+import JobDetailsPage from '../pages/JobDetailsPage/JobDetailsPage';
+import JobOverview from '../pages/JobOverview/JobOverview';
+import FindJobPage from '../pages/FindJob/FindJobPage.jsx';
 
 
 const router = createBrowserRouter(
@@ -29,6 +33,9 @@ const router = createBrowserRouter(
         <Route path="post-job" element={<PostJob/>} />
         <Route path="categories/:id" />
         <Route path="profile/:id" element={<ProfilePage/>} />
+        <Route path="find-job" element={<FindJobPage/>} />
+        <Route path="job-details/:id" element={<JobDetailsPage/>} />
+        <Route path="job-overview/:id" element={<JobOverview/>} />
       </Route>
     </>
   )
