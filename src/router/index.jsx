@@ -18,6 +18,7 @@ import ProfilePage from '../pages/Profile/[id]';
 import JobDetailsPage from '../pages/JobDetailsPage/JobDetailsPage';
 import JobOverview from '../pages/JobOverview/JobOverview';
 import FindJobPage from '../pages/FindJob/FindJobPage.jsx';
+import PaymentPage from '../pages/Payment/PaymentPage.jsx';
 
 
 const router = createBrowserRouter(
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
         <Route path="find-job" element={<FindJobPage/>} />
         <Route path="job-details/:id" element={<JobDetailsPage/>} />
         <Route path="job-overview/:id" element={<JobOverview/>} />
+        <Route path="payment" element={<PaymentPage/>} />
       </Route>
     </>
   )
