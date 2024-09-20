@@ -23,10 +23,10 @@ const PaymentPage = () => {
     }
   }
   return (
-    <div className='px-12 py-10 flex flex-col md:flex-row'>
+    <div className=' lg:px-12 py-10 flex flex-col md:flex-row'>
 
       {/* Left side: Form and Radio Buttons */}
-      <div className='md:w-1/2 p-20 w-full'>
+      <div className='md:w-1/2 p-10 md:p-20 w-full'>
         <h2 className='border-b-2 border-b-[#ACACAC] py-7 font-semibold text-3xl'>Payment</h2>
         
 
@@ -78,7 +78,7 @@ const PaymentPage = () => {
 
       </div>
 
-      <div className='md:w-1/2 w-full flex items-center justify-center'>
+      <div className='hidden lg:w-1/2  lg:flex items-center justify-center'>
           <img src={getImageForPaymentMethod()} alt={paymentMethod}  >
           </img>
       </div>
