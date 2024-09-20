@@ -32,10 +32,10 @@ const TransferPayment= () => {
     return(
     <form className="flex flex-col justify-between items-center py-10">
        <div className="flex flex-col justify-center items-center m-8 ">
-          <p className="text-xl mb-6 font-light text-[#ACACAC]">Transfer USD${bankDetails.amount} to:</p>
+          <p className="text-center text-xl mb-6 font-light text-[#ACACAC]">Transfer USD${bankDetails.amount} to:</p>
           <p className="font-medium text-2xl">{bankDetails.name}</p>
           <p className="text-4xl font-medium">{bankDetails.accountNumber}</p>
-          <p className="text-[#ACACAC] text-xl mt-6 font-light">
+          <p className="text-center text-[#ACACAC] text-xl mt-6 font-light">
             Expires in <span className="text-red-500 ">{timeLeft > 0 ? formatTime(timeLeft) : '00:00'} </span> minutes
           </p>
         </div>
