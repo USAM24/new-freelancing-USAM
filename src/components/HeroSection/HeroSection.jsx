@@ -48,7 +48,7 @@ const HeroSection = () => {
       />
 
       {/* Main content container with two sections (left and right) */}
-      <div className="container mx-auto flex items-center justify-between lg:gap-16">
+      <div className="container mx-auto flex items-center justify-between lg:gap-16 ">
         {/* Left section containing the heading, paragraph, and buttons */}
         <motion.div className="basis-1/2" initial="hidden" animate="visible">
           {/* Heading with staggered animation */}

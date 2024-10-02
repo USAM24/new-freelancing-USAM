@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, PopoverGroup } from '@headlessui/react'; // Import
 import { Link, NavLink } from 'react-router-dom'; // Importing routing components
 import { motion, AnimatePresence } from 'framer-motion'; // Importing Framer Motion for animations
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
+import logo from "../../assets/cleanlogo.png";
 
 import useReactQuery from '../../hooks/useReactQuery'; // Custom hook for React Query
 import UserProfileNav from '../UserProfileNav'; // User profile navigation component
@@ -13,23 +14,32 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // State to store navigation data fetched from the API
-  const [navData, setNavData] = useState([]);
+  // const [navData, setNavData] = useState([]);
+
 
   // Example logged-in state; replace with actual authentication logic
   const isLoggedIn = true;
 
   // Fetching navigation links data using React Query
-  const { data } = useReactQuery({
-    queryKey: ['nav-links'],
-    url: '/navLinks',
-  });
+  // const { data } = useReactQuery({
+  //   queryKey: ['nav-links'],
+  //   url: '/navLinks',
+  // });
 
   // Updating navData state when data is fetched
-  useEffect(() => {
-    if (data) {
-      setNavData(data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setNavData(data);
+  //   }
+  // }, [data]);
+  const  navData= [
+    { id: 1, link: "/", name: "Home" },
+    { id: 2, link: "/market-place", name: "MarketPlace" },
+    { id: 3, link: "/find-freelancers", name: "Find Freelancers" },
+    { id: 4, link: "/post-job", name: "Post Job" },
+
+  ];
+
 
   return (
     <header className="bg-pure-white">
@@ -43,7 +53,8 @@ const Navbar = () => {
             <span className="sr-only">Your Company</span>
             <img
               alt="logo"
-              src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
+              src={logo}
+              // src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
               className="h-20 w-auto"
             />
           </Link>
@@ -72,7 +83,7 @@ const Navbar = () => {
             <NavLink
               to={link}
               key={id}
-              className="text-lg font-normal leading-6 text-pure-black hover:text-[#252525] duration-300"
+              className="text-lg font-normal leading-6 text-black hover:text-[#252525] duration-300"
             >
               {name}
             </NavLink>
@@ -144,7 +155,7 @@ const Navbar = () => {
                 <div className="mt-6 flow-root">
                   <div className="-my-6 divide-y divide-gray-500/50">
                     <div className="space-y-2 py-6">
-                      {navData?.slice(1).map(({ id, link, name }) => (
+                      {navData?.map(({ id, link, name }) => (
                         <NavLink
                           to={link}
                           key={id}

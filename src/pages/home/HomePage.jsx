@@ -3,12 +3,16 @@ import {
   HeroSection,
   HowItWorks,
   TrustedBySection,
+  
 } from '../../components';
+
+import FirstPage from "../../components/PostJobPages/FirstPage";
 import { categories, howItWorkdTtems, trustedByData } from '../../data';
 import HowItWork from '../../assets/HowItWork.png';
 const HomePage = () => {
   return (
     <main>
+      
       <HeroSection />
       <TrustedBySection data={trustedByData} />
       <div className="py-10 container mx-auto">
