@@ -31,7 +31,7 @@ const TrustedBySection = ({ data }) => {
   return (
     // Main section with a light gray background.
     <section className="bg-[#E9E9E9]">
-      <div className="container mx-auto py-3">
+      <div className="container mx-auto py-3  ">
         {' '}
         {/* Container for centering and padding */}
         <motion.div

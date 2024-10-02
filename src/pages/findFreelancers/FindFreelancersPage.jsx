@@ -105,7 +105,7 @@ const FindFreelancersPage = () => {
   };
 
   return (
-    <div className="px-12">
+    <div className="container mb-14">
       <h4 className="text-[#777777]">
         Find Freelancers{" "}
         <span className="text-[#037C6A]">
