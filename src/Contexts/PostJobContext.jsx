@@ -7,6 +7,8 @@ export const PostJobProvider = ({ children }) => {
   const [timeframe, setTimeframe] = useState("");
   const [category, setCategory] = useState("");
   const [otherCategory, setOtherCategory] = useState("");
+  const [fixedPrice, setFixedPrice] = useState();
+  const [hourlyRate, setHourlyRate] = useState();
   const [jobTitle, setJobTitle] = useState("");
   const [skills, setSkills] = useState([]);
   const [exp, setExp] = useState("");
@@ -27,7 +29,11 @@ export const PostJobProvider = ({ children }) => {
         description,
         file,
         otherCategory,
+        fixedPrice,
+        hourlyRate,
         setOtherCategory,
+        setFixedPrice,
+        setHourlyRate,
         setFile,
         setScope,
         setTimeframe,

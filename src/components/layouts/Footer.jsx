@@ -11,7 +11,7 @@ import logo from "../../assets/cleanlogo.png";
 const Footer = () => 
   {
   return (
-    <footer className="bg-white ">
+    <footer className="bg-white dark:bg-neutral-900">
       <div className="  border-b border-[#ababab] " ></div>
      
       <div className="container mx-auto">
@@ -23,7 +23,7 @@ const Footer = () =>
               // src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
               className="h-20 w-auto mb-7"
             />
-            <p className=" font-medium leading-6  text-black font-roboto pr-14">
+            <p className=" font-medium leading-6  text-black dark:text-white font-roboto pr-14">
               Powerful Freelance Marketplace System with ability to change the
               Users (Freelancers & Clients)
             </p>
@@ -40,70 +40,70 @@ const Footer = () =>
             </div>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7">For Clients</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">For Clients</h4>
             <ul>
               <li className="mb-2">
-                <a href="#" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   About Us
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/find-freelancers" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="/find-freelancers" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Find Freelancers
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/post-job" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="/post-job" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Post Project
                 </a>
               </li>
               <li className="mb-2">
-                <a href="#" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Privacy Policy
                 </a>
               </li>
               <li className="mb-2">
-                <a href="#" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Refund Policy
                 </a>
               </li>
             </ul>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7">For Freelancers</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">For Freelancers</h4>
             <ul>
               <li className="mb-2">
-                <a href="/find-job" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="/find-job" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Find work
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/sign-up" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="/sign-up" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   Create Account
                 </a>
               </li>
             </ul>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7">Contact Us</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">Contact Us</h4>
             <ul>
               <li className="flex mb-2">
                 <img className="pr-2" src={location} alt="location icon" />
-                <p className=" text-neutral-250 font-medium ">
+                <p className=" text-neutral-250 dark:text-neutral-200 font-medium ">
                   Egypt, Cairo
                 </p>
               </li>
               <li className="flex mb-2">
                 <img className="pr-2" src={phone_outline} alt="phone icon" />
 
-                <p href="#" className=" text-neutral-250 font-medium ">
+                <p href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium ">
                   +0201009078456
                 </p>
               </li>
               <li className="flex mb-2">
                 <img className="pr-2" src={email_outline} alt="email icon"  />
        
-                <a href="#" className=" text-neutral-250 font-medium hover:text-gray-900">
+                <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
                   usma24@gmail.com
                 </a>
               </li>
@@ -116,7 +116,7 @@ const Footer = () =>
    
         
       <div className="text-center container mx-auto mb-4">
-          <p className="text-lg font-normal leading-6  text-neutral-250  font-roboto">
+          <p className="text-lg font-normal leading-6  text-neutral-250 dark:text-neutral-200  font-roboto">
             2024 USAM. All right reserved
           </p>
        

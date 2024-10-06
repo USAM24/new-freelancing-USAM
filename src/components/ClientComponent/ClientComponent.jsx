@@ -3,7 +3,7 @@ import profile from "../../assets/profile.png"
 
 function ClientComponent({review}) {
   return (
-    <div className="rounded-lg p-4 w-[325px] m-2 flex flex-col bg-white">
+    <div className="rounded-lg p-4 w-[325px] m-2 flex flex-col bg-white dark:bg-neutral-900">
       <div className="flex flex-row">
         <img
           src={profile}

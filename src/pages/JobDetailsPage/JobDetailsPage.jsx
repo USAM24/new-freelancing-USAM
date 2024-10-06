@@ -88,13 +88,13 @@ const JobDetailsPage = () => {
                         <h2 className='font-medium mb-3 text-xl'>
                             10% fees on your project
                         </h2>
-                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] text-right border-[1px] border-primary-50 rounded-lg '>50$</p>
+                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>50$</p>
                     </div>
                     <div className='mb-4 flex justify-between py-6'>
                         <h2 className='font-medium mb-3 text-xl'>
                             You will receive
                         </h2>
-                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] text-right border-[1px] border-primary-50 rounded-lg '>450$</p>
+                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>450$</p>
                     </div>
                 </div>
 
@@ -115,7 +115,7 @@ const JobDetailsPage = () => {
                         • Create and manage promotions
                         • Creating designs for social media channels'
 
-                         className='text-neutral-700 w-full py-3  px-4 bg-[#F2F2F2] border-[1px] border-primary-50 rounded-lg min-h-80 '>
+                         className='text-neutral-700 w-full py-3  px-4 bg-[#F2F2F2] dark:bg-neutral-950 border-[1px] border-primary-50 rounded-lg min-h-80 '>
 
                         </textarea>
                     </div>

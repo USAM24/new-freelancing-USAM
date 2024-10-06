@@ -30,9 +30,9 @@ const JobOverview = () => {
     return (
         <>
         <div className='py-12 px-24'>
-             <div className="flex justify-around border-b-2 border-b-black ">
+             <div className="flex justify-around border-b-2 border-b-black dark:border-b-white">
                     <div>
-                        <div className='py-2 px-4 rounded-[10px] border-2 border-black w-fit font-semibold mb-4'>{job.category}</div>
+                        <div className='py-2 px-4 rounded-[10px] border-2 border-black dark:border-white w-fit font-semibold mb-4'>{job.category}</div>
                         <h2 className="text-[#04AE95] mb-5 text-3xl mt-2 font-semibold">{job.job}</h2>
                     </div>
                         

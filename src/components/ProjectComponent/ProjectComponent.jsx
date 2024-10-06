@@ -6,7 +6,7 @@ function ProjectComponent({ project }) {
     <div className="flex justify-center align-center">
       <a
         href={project.link}
-        className="w-full p-4 m-2 rounded-lg bg-white border border-transparent hover:border-[#037C6A] hover:shadow-lg hover:bg-[#F0F0F0] transition duration-300"
+        className="w-full p-4 m-2 rounded-lg bg-white dark:bg-neutral-900 border border-transparent hover:border-[#037C6A] hover:shadow-lg hover:bg-[#F0F0F0] transition duration-300"
       >
         <div className="flex flex-col">
           <div className="flex justify-between">

@@ -60,7 +60,7 @@ export default function ThirdPage() {
               cols="50"
               name="description"
               id="description"
-              className="border border-gray-300 p-4 mb-3 mx-3 rounded-md focus:outline-none focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300"
+              className="border border-gray-300 p-4 mb-3 mx-3 rounded-md focus:outline-none focus:border-teal-600 dark:text-black hover:border-teal-600 shadow-sm transition duration-300"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder={description ? "" : "I’m looking for..."}
@@ -71,7 +71,7 @@ export default function ThirdPage() {
               <AttachFileOutlinedIcon onClick={handleDivClick} />
               <label
                 htmlFor="file-upload"
-                className="cursor-pointer bg-white px-4 py-2 text-center text-gray-700 transition duration-300"
+                className="cursor-pointer bg-white dark:bg-neutral-900 px-4 py-2 text-center text-gray-700 dark:text-gray-300 transition duration-300"
               >
                 {file || "Attach File"}
                 <input

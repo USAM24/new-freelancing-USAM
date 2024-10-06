@@ -108,14 +108,14 @@ const FindJobPage = () => {
           <input
             type="text"
             placeholder="Search For Freelancer By Job"
-            className="p-2 w-[90%] focus:outline-none"
+            className="p-2 w-[90%] focus:outline-none dark:text-white dark:bg-neutral-900"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
           />
         </div>
       </div>
       <div className="grid grid-cols-[1fr_3fr]">
-        <div className="bg-[#D1FAF4] max-h-[626px] p-6 rounded-lg">
+        <div className="bg-[#D1FAF4] dark:bg-primary-700 max-h-[626px] p-6 rounded-lg">
           <ul className="flex flex-col">
             {categories.map((category, index) => (
               <CheckListItem
@@ -145,7 +145,8 @@ const FindJobPage = () => {
                     <div
                       key={index}
                       style={{
-                        backgroundColor: jobb.id % 2 == 0 ? "#F2F2F2" : "", // alternating background colors
+                        backgroundColor: jobb.id % 2 == 0 ? "#F2F2F2" : "",
+                        color: jobb.id % 2 == 0 ? "#000000" : "", // alternating background colors
                     }}
           >
             <JobIcon job={jobb} />
