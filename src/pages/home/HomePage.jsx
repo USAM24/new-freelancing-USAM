@@ -17,10 +17,10 @@ const HomePage = () => {
       <TrustedBySection data={trustedByData} />
       <div className="py-10 container mx-auto">
         <div className="space-y-2 mb-4">
-          <h1 className="font-semibold lg:text-[32px] text-pure-black">
+          <h1 className="font-semibold lg:text-[32px] text-pure-black dark:text-pure-white">
             Find professional freelancers in all fields
           </h1>
-          <p className="text-[#3C3C4499] text-lg">
+          <p className="text-[#3C3C4499] dark:text-neutral-200 text-lg">
             Cover your skill needs in all specialties
           </p>
         </div>

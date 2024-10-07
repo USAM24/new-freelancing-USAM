@@ -188,7 +188,7 @@ const PostJob = () => {
           )}
           <div className="flex items-center space-x-4">
             <button
-              className="bg-white px-8 py-2 rounded font-semibold"
+              className="bg-white dark:text-black px-8 py-2 rounded font-semibold"
               type="button"
               onClick={handleCancel}
             >

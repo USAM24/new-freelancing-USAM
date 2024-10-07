@@ -50,7 +50,7 @@ const CardPayment = () => {
           <label className="block text-lg font-medium mb-2">Card Number</label>
           <input
             type="text"
-            className={`w-full py-3 px-4 h-12 border-[1.5px] ${errors.cardNumber ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
+            className={`w-full py-3 px-4 h-12 border-[1.5px] dark:text-black ${errors.cardNumber ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
             placeholder="1234 5678 9101 1121"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
@@ -65,7 +65,7 @@ const CardPayment = () => {
             <label className="block text-lg font-medium mb-2">Expiration Date</label>
             <input
               type="text"
-              className={`w-full py-3 px-4 h-12 border-[1.5px] ${errors.expirationDate ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
+              className={`w-full py-3 px-4 h-12 border-[1.5px] dark:text-black ${errors.expirationDate ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
               placeholder="MM/YY"
               value={expirationDate}
               onChange={(e) => setExpirationDate(e.target.value)}
@@ -78,7 +78,7 @@ const CardPayment = () => {
             <label className="block text-lg font-medium mb-2">CVV</label>
             <input
               type="text"
-              className={`w-full py-3 px-4 h-12 border-[1.5px] ${errors.cvv ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
+              className={`w-full py-3 px-4 h-12 border-[1.5px] dark:text-black ${errors.cvv ? 'border-red-500' : 'border-[#ACACAC]'} rounded-md`}
               placeholder="123"
               value={cvv}
               onChange={(e) => setCvv(e.target.value)}

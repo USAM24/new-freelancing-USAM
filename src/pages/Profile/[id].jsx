@@ -85,7 +85,7 @@ const ProfilePage = () => {
             Hire Me
           </button>
         </div>
-        <div className="bg-[#D9D9D9]">
+        <div className="bg-[#D9D9D9] dark:bg-neutral-950">
           <AnimatePresence mode='wait'>
             {page === "Profile" && (
               <motion.div

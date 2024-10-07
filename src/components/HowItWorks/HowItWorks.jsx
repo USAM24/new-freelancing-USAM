@@ -55,7 +55,7 @@ const HowItWorks = ({ title, data, image }) => {
           animate={isInView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
-          <h1 className="mb-[22px] lg:text-[32px] font-semibold">
+          <h1 className="mb-[22px] lg:text-[32px] font-semibold dark:text-pure-white">
             {/* Display the title, or a default fallback text */}
             {title ? title : 'How a USAM helps you get your work'}
           </h1>
@@ -68,10 +68,10 @@ const HowItWorks = ({ title, data, image }) => {
                 variants={itemVariants}
               >
                 <div className="flex items-center">
-                  <div className="w-1 h-1 rounded-full bg-pure-black mx-3" />
-                  <h3 className="font-medium lg:text-xl">{title}</h3>
+                  <div className="w-1 h-1 rounded-full bg-pure-black dark:bg-pure-white mx-3" />
+                  <h3 className="font-medium lg:text-xl dark:text-pure-white">{title}</h3>
                 </div>
-                <p className="lg:text-lg text-[#000000B2]">{description}</p>
+                <p className="lg:text-lg text-[#000000B2] dark:text-pure-white">{description}</p>
               </motion.div>
             ))}
           </div>

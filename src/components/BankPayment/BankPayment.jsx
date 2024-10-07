@@ -11,7 +11,7 @@ const BankPayment = () => {
         <select
             value={selectedBank}
             onChange={(e) => setSelectedBank(e.target.value)}
-            className={`w-full p-2 border-[1.5px] border-[#ACACAC] rounded-md ${
+            className={`w-full p-2 border-[1.5px] border-[#ACACAC] rounded-md dark:text-black ${
             isPlaceholderSelected ? "text-[#ACACAC]" : "text-black"
             }`}
         >

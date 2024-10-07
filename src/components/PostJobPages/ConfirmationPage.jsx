@@ -7,6 +7,8 @@ export default function ConfirmationPage() {
     timeframe,
     category,
     otherCategory,
+    hourlyRate,
+    fixedPrice,
     jobTitle,
     skills,
     exp,
@@ -23,11 +25,11 @@ export default function ConfirmationPage() {
   return (
     <div className="border border-gray-300 p-8  rounded-md focus:outline-none focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300 cursor-pointer">
       <div>
-        <div className="border-2 border-gray-950 p-2 px-4 font-semibold rounded-md w-fit">
+        <div className="border-2 border-gray-950 dark:border-gray-50 p-2 px-4 font-semibold rounded-md w-fit">
           {category !== "Other"? <h4>{category}</h4> : <h4>{otherCategory}</h4>}
         </div>
         <h2 className="text-3xl my-5 font-semibold">{jobTitle}</h2>
-        <hr className="border-t border-gray-950 my-4" />
+        <hr className="border-t border-gray-950 dark:border-gray-50 my-4" />
       </div>
 
       <div>
@@ -37,7 +39,7 @@ export default function ConfirmationPage() {
         </div>
         <div className="my-3">
           <h3 className="text-xl my-1 font-semibold">Payment Method</h3>
-          <p>$ {pay}</p>
+          {pay=="Hourly Rate"?(<p>${hourlyRate} {pay}</p>):<p>${fixedPrice} {pay}</p>}
         </div>
         <div className="my-3">
           <h3 className="text-xl my-1 font-semibold">Description</h3>

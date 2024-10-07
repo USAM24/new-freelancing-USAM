@@ -48,7 +48,7 @@ const HireComponent = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="name" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -58,7 +58,7 @@ const HireComponent = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="email" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -70,7 +70,7 @@ const HireComponent = () => {
                                 type="text"
                                 id="jobTitle"
                                 name="jobTitle"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="jobTitle" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -82,7 +82,7 @@ const HireComponent = () => {
                                 id="projectDescription"
                                 name="projectDescription"
                                 rows="4"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="projectDescription" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -92,7 +92,7 @@ const HireComponent = () => {
                                 type="date"
                                 id="deadline"
                                 name="deadline"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="deadline" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -105,7 +105,7 @@ const HireComponent = () => {
                                 type="number"
                                 id="budget"
                                 name="budget"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="budget" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -117,7 +117,7 @@ const HireComponent = () => {
                                 type="text"
                                 id="skills"
                                 name="skills"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                             <ErrorMessage name="skills" component="div" className="text-red-600 text-sm mt-1" />
                         </div>
@@ -142,7 +142,7 @@ const HireComponent = () => {
                                 id="comments"
                                 name="comments"
                                 rows="4"
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] focus:outline-none focus:shadow-outline"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-[#037C6A] dark:text-black focus:outline-none focus:shadow-outline"
                             />
                         </div>
 

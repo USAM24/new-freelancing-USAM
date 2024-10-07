@@ -51,5 +51,5 @@ body {
 }
 
 a.active {
-  @apply text-neutral-50 lg:text-primary-700;
+  @apply text-neutral-50 lg:text-primary-700 dark:text-neutral-900 dark:lg:text-primary-700;
 }

@@ -119,14 +119,14 @@ const FindFreelancersPage = () => {
           <input
             type="text"
             placeholder="Search For Freelancer By Job"
-            className="p-2 w-[90%] focus:outline-none"
+            className="p-2 w-[90%] focus:outline-none bg-neutral-900"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
           />
         </div>
       </div>
       <div className="grid grid-cols-[1fr_3fr]">
-        <div className="bg-[#D1FAF4] h-full p-6 rounded-lg">
+        <div className="bg-[#D1FAF4] dark:bg-primary-700 h-full p-6 rounded-lg">
           <ul className="flex flex-col">
             {categories.map((category, index) => (
               <CheckListItem

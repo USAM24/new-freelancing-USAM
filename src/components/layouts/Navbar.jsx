@@ -1,21 +1,31 @@
-import { useEffect, useState } from 'react'; // Importing hooks for managing state and lifecycle
+import { useContext, useEffect, useState } from 'react'; // Importing hooks for managing state and lifecycle
 import { Dialog, DialogPanel, PopoverGroup } from '@headlessui/react'; // Importing UI components from Headless UI
-import { Link, NavLink } from 'react-router-dom'; // Importing routing components
+import { Link, NavLink, useNavigate } from 'react-router-dom'; // Importing routing components
 import { motion, AnimatePresence } from 'framer-motion'; // Importing Framer Motion for animations
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
 import logo from "../../assets/cleanlogo.png";
+import "../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
 
 import useReactQuery from '../../hooks/useReactQuery'; // Custom hook for React Query
 import UserProfileNav from '../UserProfileNav'; // User profile navigation component
 import Button from '../ui/Button';
+import { UserContext } from '../../Contexts/UserContext'
 
-const Navbar = () => {
+const Navbar = ({setDarkMode,darkMode}) => {
+  let navigate = useNavigate();
   // State to manage the open/close state of the mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // State to store navigation data fetched from the API
   // const [navData, setNavData] = useState([]);
 
+  const { userData, token, setToken } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('Token_Value');
+    localStorage.removeItem('User_Data');
+    setToken(null);
+  };
 
   // Example logged-in state; replace with actual authentication logic
   const isLoggedIn = true;
@@ -34,7 +44,7 @@ const Navbar = () => {
   // }, [data]);
   const  navData= [
     { id: 1, link: "/", name: "Home" },
-    { id: 2, link: "/market-place", name: "MarketPlace" },
+    { id: 2, link: "/find-job", name: "Find Jobs" },
     { id: 3, link: "/find-freelancers", name: "Find Freelancers" },
     { id: 4, link: "/post-job", name: "Post Job" },
 
@@ -42,7 +52,7 @@ const Navbar = () => {
 
 
   return (
-    <header className="bg-pure-white">
+    <header className="bg-pure-white dark:bg-neutral-900">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:py-4 lg:px-8"
@@ -65,14 +75,14 @@ const Navbar = () => {
           <motion.button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-100"
             whileHover={{ scale: 1.1 }} // Scale up on hover
             whileTap={{ scale: 0.9 }} // Scale down on tap
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon
               aria-hidden="true"
-              className="h-10 w-10 text-neutral-800"
+              className="h-10 w-10 text-neutral-800 dark:text-neutral-100"
             />
           </motion.button>
         </div>
@@ -83,7 +93,7 @@ const Navbar = () => {
             <NavLink
               to={link}
               key={id}
-              className="text-lg font-normal leading-6 text-black hover:text-[#252525] duration-300"
+              className="text-lg font-normal leading-6 text-black dark:text-white hover:text-[#252525] duration-300"
             >
               {name}
             </NavLink>
@@ -92,7 +102,7 @@ const Navbar = () => {
 
         {/* Desktop authentication buttons */}
         <div className="hidden lg:flex lg:justify-end space-x-5">
-          {isLoggedIn ? (
+          {!token ? (
             <div className="space-x-5">
               <Button width={'md'} variant={'outline'}>
                 <Link to={'/sign-in'}>Login</Link>
@@ -102,11 +112,18 @@ const Navbar = () => {
               </Button>
             </div>
           ) : (
-            <div>
-              <UserProfileNav />
+            <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5'>
+              {/* <UserProfileNav /> */}
+              <img src={userData.image} alt="" />
+              <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link>
+              <Button width={'md'} variant={'primary'}>
+                <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link>
+              </Button>
             </div>
           )}
+          <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
         </div>
+        
       </nav>
 
       {/* Mobile menu */}
@@ -159,7 +176,7 @@ const Navbar = () => {
                         <NavLink
                           to={link}
                           key={id}
-                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 hover:bg-primary-800"
+                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                         >
                           {name}
                         </NavLink>
@@ -170,19 +187,20 @@ const Navbar = () => {
                     <div className="py-8 space-y-2">
                       <NavLink
                         to="/sign-in"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 hover:bg-primary-800"
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
-                        {isLoggedIn ? 'Profile' : 'Login'}
+                        {token ? <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link> : 'Login'}
                       </NavLink>
 
                       <NavLink
                         to="sign-up"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 hover:bg-primary-800"
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
-                        {isLoggedIn ? 'Logout' : 'Register'}
+                        {token ? <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link> : 'Register'}
                       </NavLink>
                     </div>
-                  </div>
+                      <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
+                    </div>
                 </div>
               </DialogPanel>
             </motion.div>

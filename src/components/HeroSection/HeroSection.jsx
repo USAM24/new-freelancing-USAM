@@ -53,7 +53,7 @@ const HeroSection = () => {
         <motion.div className="basis-1/2" initial="hidden" animate="visible">
           {/* Heading with staggered animation */}
           <motion.h1
-            className="font-semibold lg:text-[54px] xl:text-[64px] text-pure-black lg:max-w-[360px] xl:max-w-[503px]"
+            className="font-semibold lg:text-[54px] xl:text-[64px] text-pure-black dark:text-pure-white lg:max-w-[360px] xl:max-w-[503px]"
             custom={0} // Custom index for staggered delay
             variants={leftVariants} // Using left-side animation for this element
           >
@@ -63,7 +63,7 @@ const HeroSection = () => {
 
           {/* Supporting paragraph with staggered animation */}
           <motion.p
-            className="lg:mt-6 lg:mb-8 lg:text-lg xl:text-xl lg:max-w-[374px] xl:max-w-[410px]"
+            className="lg:mt-6 lg:mb-8 lg:text-lg xl:text-xl lg:max-w-[374px] xl:max-w-[410px] dark:text-pure-white"
             custom={1} // Custom index for staggered delay
             variants={leftVariants} // Using left-side animation for this element
           >

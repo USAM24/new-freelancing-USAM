@@ -10,7 +10,7 @@ import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 export default function SecondPage() {
-  const { skills, setSkills, jobTitle, setJobTitle, exp, setExp, pay, setPay } =
+  const { skills, setSkills, jobTitle, setJobTitle, exp, setExp, pay, setPay, fixedPrice ,hourlyRate,setFixedPrice,setHourlyRate } =
     useContext(PostJobContext);
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export default function SecondPage() {
               <input
                 type="text"
                 placeholder={jobTitle ? "" : "e.g. UX/UI Designer"}
-                className="border border-gray-300 p-6 mb-5 mx-3 rounded-lg focus:outline-none focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300"
+                className="border border-gray-300 p-6 mb-5 mx-3 rounded-lg focus:outline-none dark:text-black focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
@@ -76,7 +76,7 @@ export default function SecondPage() {
                 onChange={(e) => setInputSkill(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="e.g. Adobe Photoshop"
-                className="border border-gray-300 p-6 mx-3 rounded-lg focus:outline-none focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300"
+                className="border border-gray-300 p-6 mx-3 rounded-lg focus:outline-none dark:text-black focus:border-teal-600 hover:border-teal-600 shadow-sm transition duration-300"
               />
 
               {skills.length > 0 && (
@@ -84,7 +84,7 @@ export default function SecondPage() {
                   {skills.map((skill, index) => (
                     <div
                       key={index}
-                      className="flex flex-row p-3 mr-3 mb-3 border border-lime-500 rounded-lg cursor-pointer hover:bg-gray-100"
+                      className="flex flex-row p-3 mr-3 mb-3 border border-lime-500 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800"
                       onClick={() => handleRemoveSkill(skill)}
                     >
                       <HighlightOffOutlinedIcon className="text-lime-500 " />
@@ -101,7 +101,7 @@ export default function SecondPage() {
                 {suggestedSkills.map((skill, index) => (
                   <div
                     key={index}
-                    className="flex flex-row p-3 mr-3 mb-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100"
+                    className="flex flex-row p-3 mr-3 mb-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-800"
                     onClick={() => handleSuggestedSkillClick(skill)}
                   >
                     <ControlPointOutlinedIcon />
@@ -151,6 +151,8 @@ export default function SecondPage() {
                   value="Hourly Rate"
                   selectedValue={pay}
                   setValue={setPay}
+                  hourlyRate={hourlyRate}
+                setHourlyRate={setHourlyRate}
                 />
                 <RadioCard
                   title="Fixed Price"
@@ -160,6 +162,8 @@ export default function SecondPage() {
                   value="Fixed Price"
                   selectedValue={pay}
                   setValue={setPay}
+                  fixedPrice={fixedPrice}
+                setFixedPrice={setFixedPrice}
                 />
               </div>
             </div>

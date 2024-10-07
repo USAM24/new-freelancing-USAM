@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function RadioCard({ title, Icon, description, name, value,selectedValue, setValue,otherCategory,
-  setOtherCategory  }) {
+  setOtherCategory, hourlyRate,setHourlyRate,fixedPrice,setFixedPrice  }) {
   const handleDivClick = () => {
     document.getElementById(value).click();
   };
@@ -13,9 +13,15 @@ export default function RadioCard({ title, Icon, description, name, value,select
   const handleCustomInputChange = (e) => {
     setOtherCategory(e.target.value);
   };
+  const handleHourlyRateInputChange = (e) => {
+    setHourlyRate(e.target.value);
+  };
+  const handleFixedPriceInputChange = (e) => {
+    setFixedPrice(e.target.value);
+  };
   return (
     <div
-      className="flex flex-row p-8 m-2 w-4/5 cursor-pointer border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:shadow-md transition duration-300 ease-in-out"
+      className="flex flex-row p-8 m-2 w-4/5 cursor-pointer border-2 border-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-800 hover:shadow-md transition duration-300 ease-in-out"
       onClick={handleDivClick}
     >
       <div className="flex flex-col mr-4">
@@ -30,7 +36,25 @@ export default function RadioCard({ title, Icon, description, name, value,select
           type="text"
           value={otherCategory}
           onChange={handleCustomInputChange}
-          className=" p-2 border-2 border-gray-300 rounded-lg"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          placeholder="Enter your value"
+        />
+      )}
+          {title === "Hourly Rate" && (
+        <input
+          type="number"
+          value={hourlyRate}
+          onChange={handleHourlyRateInputChange}
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          placeholder="Enter your value"
+        />
+      )}
+          {title === "Fixed Price" && (
+        <input
+          type="number"
+          value={fixedPrice}
+          onChange={handleFixedPriceInputChange}
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
           placeholder="Enter your value"
         />
       )}
