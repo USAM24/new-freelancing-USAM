@@ -22,7 +22,7 @@ const JobIcon = ({ job }) => {
                <div className='flex flex-col gap-5'>
                  <div className="flex justify-around">
                     <Link to={`/job-overview/${job.id}`}>
-                      <h2 className="text-[#04AE95] mb-5 text-3xl mt-2">{job.job}</h2>
+                      <h2 className="text-[#04AE95] mb-5 text-3xl mt-2">{job.jobTitle}</h2>
                     </Link>
                     <IconButton
                         size="sm"
@@ -45,8 +45,8 @@ const JobIcon = ({ job }) => {
                         <p>{job.description}</p>
                   </div>
                   <div className='flex flex-row gap-2 flex-wrap'>
-                        { job.skills.map((skill) => (
-                        <SkillIcon skill={skill} />
+                        { job.skills.map((skill,i) => (
+                        <SkillIcon key={i} skill={skill} />
                         ))}
                   </div>
                  

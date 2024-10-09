@@ -9,6 +9,7 @@ export default function ConfirmationPage() {
     otherCategory,
     hourlyRate,
     fixedPrice,
+    estimatedHours,
     jobTitle,
     skills,
     exp,
@@ -39,7 +40,7 @@ export default function ConfirmationPage() {
         </div>
         <div className="my-3">
           <h3 className="text-xl my-1 font-semibold">Payment Method</h3>
-          {pay=="Hourly Rate"?(<p>${hourlyRate} {pay}</p>):<p>${fixedPrice} {pay}</p>}
+          {pay=="Hourly Rate"?(<p>${hourlyRate} {pay} and Estimated Hours: {estimatedHours}H </p>):<p>${fixedPrice} {pay}</p>}
         </div>
         <div className="my-3">
           <h3 className="text-xl my-1 font-semibold">Description</h3>

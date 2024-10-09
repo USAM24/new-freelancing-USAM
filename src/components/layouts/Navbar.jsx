@@ -114,8 +114,8 @@ const Navbar = ({setDarkMode,darkMode}) => {
           ) : (
             <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5'>
               {/* <UserProfileNav /> */}
-              <img src={userData.image} alt="" />
-              <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link>
+              {userData!=null && <><img src={userData.image} alt="" />
+              <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link></>}
               <Button width={'md'} variant={'primary'}>
                 <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link>
               </Button>

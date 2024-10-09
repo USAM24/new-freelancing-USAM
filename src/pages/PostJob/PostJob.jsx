@@ -7,27 +7,55 @@ import ConfirmationPage from "../../components/PostJobPages/ConfirmationPage";
 import { useNavigate } from "react-router-dom";
 import PostJobContext from "../../Contexts/PostJobContext";
 import SaveDraftModal from "../../components/SaveDrafeModal";
+import { isDraft } from "@reduxjs/toolkit";
+import axios from "axios";
+import { jwtDecode } from '../../../node_modules/jwt-decode';
+import { BaseURL } from "../../api/BaseURL";
+import { UserContext } from "../../Contexts/UserContext";
 
 const PostJob = () => {
   const navigate = useNavigate();
+  const { setToken } = useContext(UserContext);
+  const [postJobData, setPostJobData] = useState({
+    timeframe: "",
+    category: "",
+    attached_file: "",
+    jobTitle: "",
+    skills: [],
+    description: "",
+    ExperienceLevel: "",
+    paymentType: "",
+    budget: "",
+    estimatedHours:null,
+    isDraft:false
+  })
   const {
     scope,
     timeframe,
     category,
+    otherCategory,
     jobTitle,
     skills,
     exp,
     pay,
+    fixedPrice,
+    hourlyRate,
+    estimatedHours,
     file,
     description,
+    // postJobData,
     setFile,
     setScope,
     setTimeframe,
     setCategory,
+    setOtherCategory,
     setJobTitle,
     setSkills,
     setExp,
     setPay,
+    setFixedPrice,
+    setHourlyRate,
+    setEstimatedHours,
     setDescription,
   } = useContext(PostJobContext);
 
@@ -43,33 +71,166 @@ const PostJob = () => {
     localStorage.setItem("pgNo", JSON.stringify(pgNo));
   }, [pgNo]);
 
-  function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     // Send to server
     console.log(
-      scope,
+      {scope,
       timeframe,
       category,
       jobTitle,
       skills,
       exp,
       pay,
+      fixedPrice,
+      hourlyRate,
+      estimatedHours,
       file,
-      description
+      description}
     );
 
-    // Clear data
-    setFile(null);
-    setScope("");
-    setTimeframe("");
-    setCategory("");
-    setJobTitle("");
-    setSkills([]);
-    setExp("");
-    setPay("");
-    setDescription("");
-    localStorage.setItem("pgNo", 1);
+    postJobData.timeframe=scope;
+    category=='Other' ? postJobData.category=otherCategory:postJobData.category=category
+    postJobData.attached_file=file;
+    postJobData.jobTitle=jobTitle;
+    postJobData.skills=skills;
+    postJobData.description=description;
+    postJobData.ExperienceLevel=exp;
+    postJobData.paymentType=pay;
+    postJobData.paymentType=="Hourly Rate"?postJobData.budget=hourlyRate:postJobData.budget=fixedPrice;
+    postJobData.paymentType=="Hourly Rate"?postJobData.estimatedHours=Number(estimatedHours):postJobData.estimatedHours=null;
+    console.log(postJobData);
+    
+    const token = localStorage.getItem('Token_Value');
+if (token) {
+  const decodeToken = jwtDecode(token);
+  setToken(decodeToken);  // Storing in context
 
-    navigate("/");
+  // Log decoded token and post job data
+  console.log('Decoded token:', decodeToken);
+  console.log('Post job data:', postJobData);
+
+  try {
+    const response = await fetch(BaseURL + 'projects', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postJobData), // Log data being sent
+    });
+
+    if (response.ok) {
+      // Success handling
+      setFile(null);
+      setScope("");
+      setTimeframe("");
+      setCategory("");
+      setOtherCategory('');
+      setJobTitle("");
+      setSkills([]);
+      setExp("");
+      setPay("");
+      setDescription("");
+      setHourlyRate("");
+      setFixedPrice("");
+      setEstimatedHours("");
+      localStorage.setItem("pgNo", 1);
+      navigate("/");
+    } else {
+      // Capture and log error details from response
+      const errorData = await response.json();
+      console.error("Error response:", errorData);
+    }
+  } catch (error) {
+    console.error("Failed to post job data:", error);
+  }
+} else {
+  alert("You should login first");
+}
+
+
+    // const token = localStorage.getItem('Token_Value');
+    // if (token) {
+    //   const decodeToken = jwtDecode(token);
+    //   setToken(decodeToken);  // Storing in context
+    //   try {
+    //     const response = await fetch(BaseURL+'projects', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Authorization': `Bearer ${token}`,
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(postJobData),
+    //     });
+  
+    //     if (response.ok) {
+          
+    //       // Clear data
+    //       setFile(null);
+    //       setScope("");
+    //       setTimeframe("");
+    //       setCategory("");
+    //       setOtherCategory('');
+    //       setJobTitle("");
+    //       setSkills([]);
+    //       setExp("");
+    //       setPay("");
+    //       setDescription("");
+    //       setHourlyRate("");
+    //       setFixedPrice("");
+    //       setEstimatedHours("");
+    //       localStorage.setItem("pgNo", 1);
+
+    //       navigate("/");
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to fetch user data:", error);
+    //   }
+    // }else{
+    //   alert("You should login first")
+    // }
+
+    // axios.post(BaseURL+'projects',postJobData).then((response)=>{
+    //   console.log(response.data);
+    //   // Clear data
+    // setFile(null);
+    // setScope("");
+    // setTimeframe("");
+    // setCategory("");
+    // setOtherCategory('');
+    // setJobTitle("");
+    // setSkills([]);
+    // setExp("");
+    // setPay("");
+    // setDescription("");
+    // setHourlyRate("");
+    // setFixedPrice("");
+    // setEstimatedHours("");
+    // localStorage.setItem("pgNo", 1);
+
+    // navigate("/");
+    // }).catch((error)=>{
+    //   console.error(error);
+    // })
+
+    // Clear data
+    // setFile(null);
+    // setScope("");
+    // setTimeframe("");
+    // setCategory("");
+    // setOtherCategory('');
+    // setJobTitle("");
+    // setSkills([]);
+    // setExp("");
+    // setPay("");
+    // setDescription("");
+    // setHourlyRate("");
+    // setFixedPrice("");
+    // setEstimatedHours("");
+    // localStorage.setItem("pgNo", 1);
+
+    // navigate("/");
   }
 
   function handleCancel() {
@@ -91,21 +252,45 @@ const PostJob = () => {
       description,
     });
 
-    setFile(null);
-    setScope("");
-    setTimeframe("");
-    setCategory("");
-    setJobTitle("");
-    setSkills([]);
-    setExp("");
-    setPay("");
-    setDescription("");
-    localStorage.setItem("pgNo", 1);
+    postJobData.timeframe=scope;
+    category=='Other' ? postJobData.category=otherCategory:postJobData.category=category
+    postJobData.attached_file=file;
+    postJobData.jobTitle=jobTitle;
+    postJobData.skills=skills;
+    postJobData.description=description;
+    postJobData.ExperienceLevel=exp;
+    postJobData.paymentType=pay;
+    postJobData.paymentType=="Hourly Rate"?postJobData.budget=hourlyRate:postJobData.budget=fixedPrice;
+    postJobData.paymentType=="Hourly Rate"?postJobData.estimatedHours=Number(estimatedHours):postJobData.estimatedHours=null;
+    postJobData.isDraft=true;
+    console.log(postJobData);
 
-    // Close the modal and navigate
-    setIsModalOpen(false);
-    // Clear data if necessary
-    navigate("/");
+    // axios.post(BaseURL+'/projects',postJobData).then((response)=>{
+    //   console.log(response.data);
+    //   setFile(null);
+    //   setScope("");
+    //   setTimeframe("");
+    //   setCategory("");
+    //   setOtherCategory('');
+    //   setJobTitle("");
+    //   setSkills([]);
+    //   setExp("");
+    //   setPay("");
+    //   setHourlyRate("");
+    //   setFixedPrice("");
+    //   setEstimatedHours("");
+    //   setDescription("");
+    //   localStorage.setItem("pgNo", 1);
+
+    //   // Close the modal and navigate
+    //   setIsModalOpen(false);
+    //   // Clear data if necessary
+    //   navigate("/");
+    // }).catch((error)=>{
+    //   console.error(error);
+    // })
+
+    
   }
 
   function handleDiscard() {
@@ -114,10 +299,14 @@ const PostJob = () => {
     setScope("");
     setTimeframe("");
     setCategory("");
+    setOtherCategory('');
     setJobTitle("");
     setSkills([]);
     setExp("");
     setPay("");
+    setHourlyRate("");
+    setFixedPrice("");
+    setEstimatedHours("");
     setDescription("");
     localStorage.setItem("pgNo", 1);
 

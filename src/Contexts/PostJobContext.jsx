@@ -8,14 +8,24 @@ export const PostJobProvider = ({ children }) => {
   const [category, setCategory] = useState("");
   const [otherCategory, setOtherCategory] = useState("");
   const [fixedPrice, setFixedPrice] = useState();
-  const [hourlyRate, setHourlyRate] = useState();
+  const [hourlyRate, setHourlyRate] = useState("");
+  const [estimatedHours, setEstimatedHours] = useState(null);
   const [jobTitle, setJobTitle] = useState("");
   const [skills, setSkills] = useState([]);
   const [exp, setExp] = useState("");
   const [pay, setPay] = useState("");
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
-
+  const [postJobData, setPostJobData] = useState({
+    timeframe: "",
+    category: category,
+    attached_file: "",
+    jobTitle: "",
+    skills: [],
+    description: "",
+    ExperienceLevel: "",
+    paymentType: "",
+  })
   return (
     <PostJobContext.Provider
       value={{
@@ -31,9 +41,13 @@ export const PostJobProvider = ({ children }) => {
         otherCategory,
         fixedPrice,
         hourlyRate,
+        estimatedHours,
+        postJobData,
+        setPostJobData,
         setOtherCategory,
         setFixedPrice,
         setHourlyRate,
+        setEstimatedHours,
         setFile,
         setScope,
         setTimeframe,
