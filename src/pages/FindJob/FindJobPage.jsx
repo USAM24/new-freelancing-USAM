@@ -2,8 +2,12 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import JobIcon from "../../components/JobIcon/JobIcon.jsx";
 import SearchIcon from "@mui/icons-material/Search";
 import CheckListItem from "../../components/CheckListItem/CheckListItem";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PaginationComponent from "../../components/Pagination/Pagination.jsx";
+import axios from "axios";
+import { BaseURL } from "../../api/BaseURL.js";
+import { UserContext } from "../../Contexts/UserContext.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
 
 const FindJobPage = () => {
 
@@ -12,9 +16,25 @@ const FindJobPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage , setCurrentPage] =useState(1);
   const [postsPerPage , setPostsPerPage] =useState(5);
+  const [jobs, setJobs] = useState([]);
+  const { token } = useContext(UserContext);
+  const getJobs = ()=>{
+    axios.get(BaseURL+'projects/explore',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    }).then((response)=>{
+      console.log(response.data.projects);
+      setJobs(response.data.projects)
+      console.log(token);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
 
-  
-
+  useEffect(()=>{
+    getJobs();
+  },[])
 
   const categories = [
     "All",
@@ -27,7 +47,7 @@ const FindJobPage = () => {
     "Writing & Translation"
   ];
 
-  const jobs = [
+  const jobss = [
     {
       id: 1,
       job: "UX/UI Designer for a website (Figma Required)",
@@ -94,7 +114,8 @@ const FindJobPage = () => {
   };
 
   return (
-    <div className="px-12">
+    <>
+      {jobs.length!==0?<><div className="px-12">
       <h4 className="text-[#777777]">
         Find a Job{" "}
         <span className="text-[#037C6A]">
@@ -131,14 +152,14 @@ const FindJobPage = () => {
           {/**/}
           
             
-          <div className="max-w-4xl py-6 px-8 flex flex-col gap-5">
+          <div className="max-w-4xl py-6 px-8 flex flex-col gap-5 w-full">
               <h2 className="mb-8 font-medium text-2xl">Jobs you may like</h2>
               {jobs
               .filter(
                 (jobb) =>
                   (checkedCategories.includes(jobb.category) || 
                   checkedCategories.includes("All")) &&
-                  (jobb.job.toLowerCase().includes(searchQuery) || 
+                  (jobb.jobTitle.toLowerCase().includes(searchQuery) || 
                   jobb.skills.some(skill => skill.toLowerCase().includes(searchQuery))) // Search in skills array
               ).slice(firstPageIndex,lastPageIndex)
                   .map((jobb, index) => (
@@ -161,7 +182,8 @@ const FindJobPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div></>:<Loader/>}
+    </>
   );
 };
 

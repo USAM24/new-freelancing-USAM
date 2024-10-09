@@ -119,7 +119,7 @@ const FindFreelancersPage = () => {
           <input
             type="text"
             placeholder="Search For Freelancer By Job"
-            className="p-2 w-[90%] focus:outline-none bg-neutral-900"
+            className="p-2 w-[90%] focus:outline-none dark:bg-neutral-900"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
           />
