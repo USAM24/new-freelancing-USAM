@@ -1,24 +1,21 @@
-import { useContext, useEffect, useState } from 'react'; // Importing hooks for managing state and lifecycle
-import { Dialog, DialogPanel, PopoverGroup } from '@headlessui/react'; // Importing UI components from Headless UI
-import { Link, NavLink, useNavigate } from 'react-router-dom'; // Importing routing components
-import { motion, AnimatePresence } from 'framer-motion'; // Importing Framer Motion for animations
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
+import { useContext, useEffect, useState } from 'react';
+import { Dialog, DialogPanel, PopoverGroup } from '@headlessui/react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from "../../assets/cleanlogo.png";
 import "../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-
-import useReactQuery from '../../hooks/useReactQuery'; // Custom hook for React Query
-import UserProfileNav from '../UserProfileNav'; // User profile navigation component
+import LanguageToggle from '../../langTogglingComponent/langToggle';
+import useReactQuery from '../../hooks/useReactQuery';
+import UserProfileNav from '../UserProfileNav';
 import Button from '../ui/Button';
-import { UserContext } from '../../Contexts/UserContext'
+import { UserContext } from '../../Contexts/UserContext';
+import { useTranslation } from 'react-i18next';
 
-const Navbar = ({setDarkMode,darkMode}) => {
+const Navbar = ({ setDarkMode, darkMode }) => {
+  const { t, i18n } = useTranslation();
   let navigate = useNavigate();
-  // State to manage the open/close state of the mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // State to store navigation data fetched from the API
-  // const [navData, setNavData] = useState([]);
-
   const { userData, token, setToken } = useContext(UserContext);
 
   const handleLogout = () => {
@@ -27,29 +24,14 @@ const Navbar = ({setDarkMode,darkMode}) => {
     setToken(null);
   };
 
-  // Example logged-in state; replace with actual authentication logic
   const isLoggedIn = true;
 
-  // Fetching navigation links data using React Query
-  // const { data } = useReactQuery({
-  //   queryKey: ['nav-links'],
-  //   url: '/navLinks',
-  // });
-
-  // Updating navData state when data is fetched
-  // useEffect(() => {
-  //   if (data) {
-  //     setNavData(data);
-  //   }
-  // }, [data]);
-  const  navData= [
-    { id: 1, link: "/", name: "Home" },
-    { id: 2, link: "/find-job", name: "Find Jobs" },
-    { id: 3, link: "/find-freelancers", name: "Find Freelancers" },
-    { id: 4, link: "/post-job", name: "Post Job" },
-
+  const navData = [
+    { id: 1, link: "/", name: t('nav.home') },
+    { id: 2, link: "/find-job", name: t('nav.findJobs') },
+    { id: 3, link: "/find-freelancers", name: t('nav.findFreelancers') },
+    { id: 4, link: "/post-job", name: t('nav.postJob') },
   ];
-
 
   return (
     <header className="bg-pure-white dark:bg-neutral-900">
@@ -60,11 +42,10 @@ const Navbar = ({setDarkMode,darkMode}) => {
         {/* Logo section */}
         <div className="flex">
           <Link to="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">{t('logo')}</span>
             <img
               alt="logo"
               src={logo}
-              // src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
               className="h-20 w-auto"
             />
           </Link>
@@ -76,10 +57,10 @@ const Navbar = ({setDarkMode,darkMode}) => {
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-100"
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on tap
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <span className="sr-only">Open main menu</span>
+            <span className="sr-only">{t('openMenu')}</span>
             <Bars3Icon
               aria-hidden="true"
               className="h-10 w-10 text-neutral-800 dark:text-neutral-100"
@@ -95,7 +76,7 @@ const Navbar = ({setDarkMode,darkMode}) => {
               key={id}
               className="text-lg font-normal leading-6 text-black dark:text-white hover:text-[#252525] duration-300"
             >
-              {name}
+              {t(name)}
             </NavLink>
           ))}
         </PopoverGroup>
@@ -105,10 +86,10 @@ const Navbar = ({setDarkMode,darkMode}) => {
           {!token ? (
             <div className="space-x-5">
               <Button width={'md'} variant={'outline'}>
-                <Link to={'/sign-in'}>Login</Link>
+                <Link to={'/sign-in'}>{t('login')}</Link>
               </Button>
               <Button width={'md'} variant={'primary'}>
-                <Link to={'/sign-up'}>Sign Up</Link>
+                <Link to={'/sign-up'}>{t('signUp')}</Link>
               </Button>
             </div>
           ) : (
@@ -117,96 +98,103 @@ const Navbar = ({setDarkMode,darkMode}) => {
               <img src={userData.image} alt="" />
               <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link>
               <Button width={'md'} variant={'primary'}>
-                <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link>
+                <Link to={'/sign-in'} onClick={handleLogout}>{t('logout')}</Link>
               </Button>
             </div>
           )}
-          <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
+        <button onClick={() => setDarkMode(!darkMode)}>
+  {darkMode ? <i className="fa-solid fa-sun text-pure-white text-2xl"></i> : <i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}
+ 
+</button>
+          <LanguageToggle/>
         </div>
         
       </nav>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <Dialog
-            open={mobileMenuOpen}
-            onClose={() => setMobileMenuOpen(false)}
-            className="lg:hidden"
-          >
-            {/* DialogPanel with animation */}
-            <motion.div
-              initial={{ y: '-100% - 128px', opacity: 0 }} // Initial state
-              animate={{ y: 0, opacity: 1 }} // Animate to visible state
-              exit={{ y: '-100% - 128px', opacity: 0 }} // Exit animation
-              transition={{ duration: 0.3 }} // Animation duration
-              className="fixed inset-0 z-10 overflow-y-auto"
+     {/* Mobile menu */}
+<AnimatePresence>
+  {mobileMenuOpen && (
+    <Dialog
+      open={mobileMenuOpen}
+      onClose={() => setMobileMenuOpen(false)}
+      className="lg:hidden"
+    >
+      {/* DialogPanel with animation */}
+      <motion.div
+        initial={{ y: '-100% - 128px', opacity: 0 }} // Initial state
+        animate={{ y: 0, opacity: 1 }} // Animate to visible state
+        exit={{ y: '-100% - 128px', opacity: 0 }} // Exit animation
+        transition={{ duration: 0.3 }} // Animation duration
+        className="fixed inset-0 z-10 overflow-y-auto"
+      >
+        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-primary-700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          {/* Close button and logo in mobile menu */}
+          <div className="flex items-center justify-between">
+            <Link to="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">{t('yourCompany')}</span>
+              <img
+                alt="logo"
+                src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
+                className="h-20 w-auto"
+              />
+            </Link>
+            <motion.button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              whileHover={{ scale: 1.1 }} // Scale up on hover
+              whileTap={{ scale: 0.9 }} // Scale down on tap
             >
-              <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-primary-700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                {/* Close button and logo in mobile menu */}
-                <div className="flex items-center justify-between">
-                  <Link to="/" className="-m-1.5 p-1.5">
-                    <span className="sr-only">Your Company</span>
-                    <img
-                      alt="logo"
-                      src="https://i.postimg.cc/9XZQqJDq/svgviewer-png-output-10.png"
-                      className="h-20 w-auto"
-                    />
-                  </Link>
-                  <motion.button
-                    type="button"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                    whileHover={{ scale: 1.1 }} // Scale up on hover
-                    whileTap={{ scale: 0.9 }} // Scale down on tap
+              <span className="sr-only">{t('closeMenu')}</span>
+              <XMarkIcon
+                aria-hidden="true"
+                className="h-8 w-8 text-neutral-800"
+              />
+            </motion.button>
+          </div>
+
+          {/* Navigation links in mobile menu */}
+          <div className="mt-6 flow-root">
+            <div className="-my-6 divide-y divide-gray-500/50">
+              <div className="space-y-2 py-6">
+                {navData?.map(({ id, link, name }) => (
+                  <NavLink
+                    to={link}
+                    key={id}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                   >
-                    <span className="sr-only">Close menu</span>
-                    <XMarkIcon
-                      aria-hidden="true"
-                      className="h-8 w-8 text-neutral-800"
-                    />
-                  </motion.button>
-                </div>
+                    {t(name)}
+                  </NavLink>
+                ))}
+              </div>
 
-                {/* Navigation links in mobile menu */}
-                <div className="mt-6 flow-root">
-                  <div className="-my-6 divide-y divide-gray-500/50">
-                    <div className="space-y-2 py-6">
-                      {navData?.map(({ id, link, name }) => (
-                        <NavLink
-                          to={link}
-                          key={id}
-                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
-                        >
-                          {name}
-                        </NavLink>
-                      ))}
-                    </div>
+              {/* Authentication buttons in mobile menu */}
+              <div className="py-8 space-y-2">
+                <NavLink
+                  to="/sign-in"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                >
+                  {token ? <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link> : t('login')}
+                </NavLink>
 
-                    {/* Authentication buttons in mobile menu */}
-                    <div className="py-8 space-y-2">
-                      <NavLink
-                        to="/sign-in"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
-                      >
-                        {token ? <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link> : 'Login'}
-                      </NavLink>
-
-                      <NavLink
-                        to="sign-up"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
-                      >
-                        {token ? <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link> : 'Register'}
-                      </NavLink>
-                    </div>
-                      <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
-                    </div>
-                </div>
-              </DialogPanel>
-            </motion.div>
-          </Dialog>
-        )}
-      </AnimatePresence>
+                <NavLink
+                  to="sign-up"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                >
+                  {token ? <Link to={'/sign-in'} onClick={handleLogout}>{t('logout')}</Link> : t('signUp')}
+                </NavLink>
+              </div>
+              <button onClick={() => setDarkMode(!darkMode)}>
+                {darkMode ? <i className="fa-solid fa-sun text-pure-white text-2xl"></i> : <i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}
+                {t('toggleDarkMode')}
+              </button>
+            </div>
+          </div>
+        </DialogPanel>
+      </motion.div>
+    </Dialog>
+  )}
+</AnimatePresence>
     </header>
   );
 };

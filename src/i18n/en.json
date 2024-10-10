@@ -1,0 +1,35 @@
+{
+    "logo": "Logo",
+    "openMenu": "Open menu",
+    "nav": {
+      "home": "Home",
+      "findJobs": "Find Jobs",
+      "findFreelancers": "Find Freelancers",
+      "postJob": "Post a Job"
+    },
+    "login": "Login",
+    "signUp": "Sign Up",
+    "logout": "Logout",
+    "toggleDarkMode": "Toggle Dark Mode",
+    "yourCompany": "Your Company",
+    "closeMenu": "Close menu",
+    "footer": {
+    "for_clients": "For Clients",
+    "about_us": "About Us",
+    "find_freelancers": "Find Freelancers",
+    "post_project": "Post Project",
+    "privacy_policy": "Privacy Policy",
+    "refund_policy": "Refund Policy",
+    "for_freelancers": "For Freelancers",
+    "find_work": "Find work",
+    "create_account": "Create Account",
+    "contact_us": "Contact Us",
+    "address": "Egypt, Cairo",
+    "phone_number": "+0201009078456",
+    "email_address": "usma24@gmail.com",
+    "copyright": "2024 USAM. All right reserved",
+    "paragraph":"translate this into arabic Powerful Freelance Marketplace System with ability to change the Users (Freelancers & Clients)"
+    
+ 
+}
+  }

@@ -1,0 +1,34 @@
+{
+    "logo": "الشعار",
+    "openMenu": "افتح القائمة",
+    "nav": {
+      "home": "الرئيسية",
+      "findJobs": "ابحث عن وظائف",
+      "findFreelancers": "ابحث عن متعاقدين",
+      "postJob": "نشر وظيفة"
+    },
+    "login": "تسجيل الدخول",
+    "signUp": "تسجيل",
+    "logout": "تسجيل الخروج",
+    "toggleDarkMode": "تبديل الوضع الداكن",
+    "yourCompany": "الشركة الخاصة بك",
+    "closeMenu": "إغلاق القائمة",
+    "footer": {
+        "for_clients": "للمستخدمين",
+        "about_us": "من نحن",
+        "find_freelancers": "ابحث عن محترفين",
+        "post_project": "نشر مشروع",
+        "privacy_policy": "سياسة الخصوصية",
+        "refund_policy": "سياسة الاسترجاع",
+        "for_freelancers": "لمحترفيين",
+        "find_work": "ابحث عن عمل",
+        "create_account": "أنشئ حساب",
+        "contact_us": "اتصل بنا",
+        "address": "مصر، القاهرة",
+        "phone_number": "+0201009078456",
+        "email_address": "usma24@gmail.com",
+        "copyright": "2024 USAM. جميع الحقوق محفوظة",
+        "paragraph":"نظام سوق العمل الحر القوي مع القدرة على تغيير المستخدمين (المستقلين والعملاء)"
+      }
+
+  }

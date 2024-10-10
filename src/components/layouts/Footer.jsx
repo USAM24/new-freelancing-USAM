@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"; // Importing hooks for managing state and lifecycle
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 // the icons 
 import email_outline from "../../assets/mdi_email-outline.png";  
 import phone_outline from "../../assets/phone_outline.png";
@@ -8,13 +10,21 @@ import facebook_icon from "../../assets/logos_facebook.png";
 import x_icon from "../../assets/prime_twitter.png";
 import logo from "../../assets/cleanlogo.png";
 
-const Footer = () => 
-  {
+const Footer = () => {
+  const { t, i18n } = useTranslation();
+
+
   return (
     <footer className="bg-white dark:bg-neutral-900">
-      <div className="  border-b border-[#ababab] " ></div>
+      <div className="  border-b border-[#ababab] "   ></div>
      
-      <div className="container mx-auto">
+      <div className="container mx-auto" dir={
+        i18n.language === "en"
+          ? "ltr"
+          : i18n.language === "ar-EG" || i18n.language === "ar-SA"
+          ? "rtl"
+          : "ltr"
+      }>
         <div className="flex flex-wrap justify-between mb-12  py-3">
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
           <img
@@ -24,8 +34,7 @@ const Footer = () =>
               className="h-20 w-auto mb-7"
             />
             <p className=" font-medium leading-6  text-black dark:text-white font-roboto pr-14">
-              Powerful Freelance Marketplace System with ability to change the
-              Users (Freelancers & Clients)
+             {t("footer.paragraph")}
             </p>
             <div className="flex mt-4">
               <a href="#" className="mr-4">
@@ -40,73 +49,71 @@ const Footer = () =>
             </div>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7 dark:text-white">For Clients</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">{t('footer.for_clients')}</h4>
             <ul>
               <li className="mb-2">
                 <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  About Us
+                  {t('footer.about_us')}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="/find-freelancers" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Find Freelancers
+                  {t('footer.find_freelancers')}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="/post-job" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Post Project
+                  {t('footer.post_project')}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Privacy Policy
+                  {t('footer.privacy_policy')}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Refund Policy
+                  {t('footer.refund_policy')}
                 </a>
               </li>
             </ul>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7 dark:text-white">For Freelancers</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">{t('footer.for_freelancers')}</h4>
             <ul>
               <li className="mb-2">
                 <a href="/find-job" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Find work
+                  {t('footer.find_work')}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="/sign-up" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  Create Account
+                  {t('footer.create_account')}
                 </a>
               </li>
             </ul>
           </div>
           <div className="w-full lg:w-1/4 mb-12 lg:mb-0">
-            <h4 className="text-lg font-medium my-7 dark:text-white">Contact Us</h4>
+            <h4 className="text-lg font-medium my-7 dark:text-white">{t('footer.contact_us')}</h4>
             <ul>
               <li className="flex mb-2">
                 <img className="pr-2" src={location} alt="location icon" />
                 <p className=" text-neutral-250 dark:text-neutral-200 font-medium ">
-                  Egypt, Cairo
+                  {t('footer.address')}
                 </p>
               </li>
               <li className="flex mb-2">
-                <img className="pr-2" src={phone_outline} alt="phone icon" />
-
-                <p href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium ">
-                  +0201009078456
-                </p>
-              </li>
-              <li className="flex mb-2">
-                <img className="pr-2" src={email_outline} alt="email icon"  />
-       
-                <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
-                  usma24@gmail.com
-                </a>
-              </li>
+  <img className="pr-2" src={phone_outline} alt="phone icon" />
+  <p className=" text-neutral-250 dark:text-neutral-200 font-medium ">
+    {t('footer.phone_number')}
+  </p>
+</li>
+<li className="flex mb-2">
+  <img className="pr-2" src={email_outline} alt="email icon"  />
+  <a href="#" className=" text-neutral-250 dark:text-neutral-200 font-medium hover:text-gray-900">
+    {t('footer.email_address')}
+  </a>
+</li>
             </ul>
           </div>
         </div>
@@ -117,7 +124,7 @@ const Footer = () =>
         
       <div className="text-center container mx-auto mb-4">
           <p className="text-lg font-normal leading-6  text-neutral-250 dark:text-neutral-200  font-roboto">
-            2024 USAM. All right reserved
+            {t('footer.copyright')}
           </p>
        
       </div>
