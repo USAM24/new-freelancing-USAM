@@ -37,7 +37,7 @@ function ProfileComponent({User}) {
       <div className="py-4">
         <h2 className="py-2 font-semibold text-lg">Skills</h2>
         <div className="flex flex-wrap flex-row">
-          {User.userSkills.map((skill, index) => (
+          {User.userSkills.split(',').map((skill, index) => (
             <div key={index} className="bg-[#037C6A] text-white rounded-md p-2 px-4 mx-2">
               {skill}
             </div>
@@ -47,9 +47,9 @@ function ProfileComponent({User}) {
       <div className="py-4">
         <h2 className="py-2 font-semibold text-lg">Review Clients</h2>
         <div className="grid grid-cols-4 gap-4">
-          {/* {User.clientReviews.map((review, index) => (
+          {User.freelancerReviews.map((review, index) => (
             <ClientComponent review={review} key={index}/>
-          ))} */}
+          ))}
         </div>
       </div>
     </div></>:<Loader/>}</>

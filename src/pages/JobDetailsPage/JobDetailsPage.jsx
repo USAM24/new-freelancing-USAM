@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import SkillIcon from '../../components/SkillIcon/SkillIcon.jsx';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from '../../Contexts/UserContext.jsx';
 import axios from 'axios';
 import { BaseURL } from '../../api/BaseURL.js';
@@ -11,6 +11,7 @@ import Loader from '../../components/Loader/Loader.jsx';
 
 const JobDetailsPage = () => {
     const [job, setJob] = useState(null)
+    const navigate = useNavigate();
     const getJob = () => {
         axios.get(BaseURL + `projects/${id}`, {
             headers: {
@@ -33,7 +34,7 @@ const JobDetailsPage = () => {
         confirmation: null
     })
     const { id } = useParams();
-    const { token } = useContext(UserContext);
+    const  token  = localStorage.getItem('Token_Value');
     const applyProposal = () => {
         // axios.post(BaseURL + `proposals/apply/${id}`, {
         //     headers: {
@@ -72,7 +73,11 @@ const JobDetailsPage = () => {
     const getData = (e) => {
         const data = { ...proposal }
         data[e.target.name] = e.target.value;
-        data['bid_amount'] = Number(job.budget) - (Number(job.budget) * 0.1);
+        if(job.paymentType=='Hourly'||job.paymentType=='Hourly Rate'){
+            data['bid_amount'] = youWillReceive;
+        }else{
+            data['bid_amount'] = Number(job.budget) - (Number(job.budget) * 0.1);
+        }
         data['confirmation'] = !agreedToTerms;
         console.log(data);
         setProposal(data);
@@ -94,6 +99,7 @@ const JobDetailsPage = () => {
                     const data = await response.json();
                     console.log(data);
                     console.log(proposal);
+                    navigate('/')
                 } else {
                     // Capture and log error details from response
                     const errorData = await response.json();
@@ -122,7 +128,17 @@ const JobDetailsPage = () => {
 
         // console.log(proposal);
     }
+    const [hourlySalary, setHourlySalary] = useState(0); // State to store the user's input
 
+    // Function to handle salary input change
+    const handleBudget = (event) => {
+        const value = event.target.value;
+        setHourlySalary(Number(value)); // Convert the input to a number and set it to state
+    };
+
+    // const jobBudget = Number(job.budget);
+    const fees = hourlySalary * 0.1;
+    const youWillReceive = hourlySalary - fees;
     return (
         <>
             {job != null ? <><div className='py-12 px-24'>
@@ -178,18 +194,30 @@ const JobDetailsPage = () => {
                 {/* Terms */}
                 <div className='p-8 border-2 border-primary-50 rounded-lg mb-9'>
                     <h2 className='text-primary-700 font-medium text-2xl mb-5'>Terms</h2>
+                    {job.paymentType === 'Hourly' || job.paymentType === 'Hourly Rate' ? (
+                <div className='mb-4 flex justify-between py-6 border-b-2 border-[#F2F2F2]'>
+                    <h2 className='font-medium mb-3 text-xl'>Hourly Salary</h2>
+                    <input 
+                        type="text" 
+                        value={hourlySalary} 
+                        onChange={handleBudget} 
+                        className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg' 
+                    />
+                </div>
+            ) : <></>}
                     <div className='mb-4 flex justify-between py-6 border-b-2 border-[#F2F2F2]'>
-                        <h2 className='font-medium mb-3 text-xl'>
-                            10% fees on your project
-                        </h2>
-                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>${Number(job.budget) * 0.1}</p>
-                    </div>
-                    <div className='mb-4 flex justify-between py-6'>
-                        <h2 className='font-medium mb-3 text-xl'>
-                            You will receive
-                        </h2>
-                        <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>${Number(job.budget) - (Number(job.budget) * 0.1)}</p>
-                    </div>
+                <h2 className='font-medium mb-3 text-xl'>10% fees on your project</h2>
+                <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>
+                    {job.paymentType === 'Hourly' || job.paymentType === 'Hourly Rate' ?`$${fees.toFixed(2)}`:`$${(Number(job.budget) * 0.1).toFixed(2)}`} {/* Display the 10% fee */}
+                </p>
+            </div>
+
+            <div className='mb-4 flex justify-between py-6'>
+                <h2 className='font-medium mb-3 text-xl'>You will receive</h2>
+                <p className='text-neutral-700 py-3 px-4 w-72 bg-[#F2F2F2] dark:bg-neutral-950 text-right border-[1px] border-primary-50 rounded-lg '>
+                {job.paymentType === 'Hourly' || job.paymentType === 'Hourly Rate' ?`$${youWillReceive.toFixed(2)}`:`$${(Number(job.budget) - (Number(job.budget) * 0.1)).toFixed(2)}`} {/* Display what the user will receive */}
+                </p>
+            </div>
                 </div>
 
                 {/* Cover Letter */}

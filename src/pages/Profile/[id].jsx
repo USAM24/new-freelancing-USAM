@@ -18,16 +18,16 @@ const ProfilePage = () => {
     // const [postsPerPage, setPostsPerPage] = useState(5);
     const {id} = useParams();
     const navigate = useNavigate();
-    const { token } = useContext(UserContext);
+    const  token  = localStorage.getItem('Token_Value');
     const getFreelancerData = () => {
-        axios.get(BaseURL + `users/${id}`, {
+        axios.get(BaseURL + `users/freelancers/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         }).then((response) => {
-            console.log(response.data.user);
-            setFreelancer(response.data.user);
+            console.log(response.data.freelancers);
+            setFreelancer(response.data.freelancers);
             console.log(token);
         }).catch((error) => {
             console.log(error);
@@ -105,7 +105,7 @@ const ProfilePage = () => {
         <h4 className="px-8">{User.country}</h4>
         <h4 className="px-8">Rate: {User.rate_per_hr}$/hr</h4>
         <h4 className="px-8">
-          <Stars rating={avgRaing} />
+          <Stars rating={User.averageRating} />
         </h4>
       </div>
       <div>

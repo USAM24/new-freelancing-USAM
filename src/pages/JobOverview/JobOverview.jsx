@@ -14,7 +14,7 @@ import Loader from '../../components/Loader/Loader.jsx';
 const JobOverview = () => {
     const [job, setJob] = useState(null)
     const { id } = useParams();
-    const { token } = useContext(UserContext);
+    const  token  = localStorage.getItem('Token_Value');
     const getJob = () => {
         axios.get(BaseURL + `projects/${id}`, {
             headers: {

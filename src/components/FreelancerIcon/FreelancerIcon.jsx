@@ -16,7 +16,7 @@ const FreelancerIcon = ({ freelancer }) => {
           <h3 className="font-semibold">{freelancer.firstName+" "+freelancer.lastName}</h3>
           <h4 className="text-[#797987] text-sm">{freelancer.category}</h4>
           <h4 className="text-[#797987] text-sm">{freelancer.jobTitle}</h4>
-          <Stars rating={freelancer.freelancerReviews[0]?.rating} />
+          <Stars rating={freelancer.averageRating} />
         </div>
       </div>
       <p className="flex-1 overflow-hidden text-ellipsis">
