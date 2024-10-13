@@ -17,7 +17,7 @@ const FindJobPage = () => {
   const [currentPage , setCurrentPage] =useState(1);
   const [postsPerPage , setPostsPerPage] =useState(5);
   const [jobs, setJobs] = useState([]);
-  const { token } = useContext(UserContext);
+  const  token  = localStorage.getItem('Token_Value');
   const getJobs = ()=>{
     axios.get(BaseURL+'projects/explore',{
       headers: {

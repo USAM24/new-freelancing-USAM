@@ -17,7 +17,7 @@ const FindFreelancersPage = () => {
     // const [currentPage, setCurrentPage] = useState(1);
     // const [postsPerPage, setPostsPerPage] = useState(5);
     const navigate = useNavigate();
-    const { token } = useContext(UserContext);
+    const  token  = localStorage.getItem('Token_Value');
     const getFreelancers = () => {
         axios.get(BaseURL + `users/freelancers`, {
             headers: {
