@@ -1,14 +1,68 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import profile from "../../assets/profile.png";
 import Stars from "../../components/Stars/Stars";
 import ProfileComponent from "../../components/ProfileComponent/ProfileComponent";
 import PortfolioComponent from "../../components/PortfolioComponent/PortfolioComponent";
 import HireComponent from "../../components/HireComponent/HireComponent";
+import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../../Contexts/UserContext";
+import axios from "axios";
+import { BaseURL } from "../../api/BaseURL";
+import Loader from "../../components/Loader/Loader";
 
 const ProfilePage = () => {
   const [page, setPage] = useState("Profile");
-  const User = {
+  const [User, setFreelancer] = useState(null);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(5);
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const { token } = useContext(UserContext);
+    const getFreelancerData = () => {
+        axios.get(BaseURL + `users/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            console.log(response.data.user);
+            setFreelancer(response.data.user);
+            console.log(token);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    // const lastPageIndex = currentPage * postsPerPage;
+    // const firstPageIndex = lastPageIndex - postsPerPage;
+
+    useEffect(() => {
+        getFreelancerData();
+    }, [])
+    const [avgRaing, setAvgRating] = useState(null);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(5);
+    // const {id} = useParams();
+    // const navigate = useNavigate();
+    // const { token } = useContext(UserContext);
+    const getAvgRating = () => {
+        axios.get(BaseURL + `freelancerReviews/average/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            console.log(response.data.averageRating);
+            setAvgRating(response.data.averageRating);
+            console.log(token);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    useEffect(() => {
+      getAvgRating();
+  }, [])
+  const Users = {
     id: 9,
     name: "Mohamed Ahmed",
     job: "Web Developer",
@@ -40,18 +94,18 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="py-4">
+    <>{User!==null?<><div className="py-4">
       <div className="flex align-senter justify-center m-6">
         <img src={profile} alt="profile" className="w-20 h-20" />
       </div>
       <div className="flex flex-row justify-center align-center">
-        <h4 className="px-8">{User.name}</h4>
+        <h4 className="px-8">{User.firstName+" "+User.lastName}</h4>
         <h4 className="px-8">{User.category}</h4>
-        <h4 className="px-8">{User.job}</h4>
+        <h4 className="px-8">{User.jobTitle}</h4>
         <h4 className="px-8">{User.country}</h4>
-        <h4 className="px-8">Rate: {User.payRate}$/hr</h4>
+        <h4 className="px-8">Rate: {User.rate_per_hr}$/hr</h4>
         <h4 className="px-8">
-          <Stars rating={User.rating} />
+          <Stars rating={avgRaing} />
         </h4>
       </div>
       <div>
@@ -96,7 +150,7 @@ const ProfilePage = () => {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <ProfileComponent />
+                <ProfileComponent User={User} />
               </motion.div>
             )}
             {page === "Portfolio" && (
@@ -126,7 +180,7 @@ const ProfilePage = () => {
           </AnimatePresence>
         </div>
       </div>
-    </div>
+    </div></>:<Loader/>}</>
   );
 };
 

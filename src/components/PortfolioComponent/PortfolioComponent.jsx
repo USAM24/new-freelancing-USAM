@@ -1,7 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProjectComponent from '../ProjectComponent/ProjectComponent';
+import { useNavigate, useParams } from 'react-router-dom';
+import { UserContext } from '../../Contexts/UserContext';
+import axios from 'axios';
+import { BaseURL } from '../../api/BaseURL';
+import Loader from '../Loader/Loader';
 
 function PortfolioComponent() {
+  const [projects, setProjects] = useState(null);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(5);
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const { token } = useContext(UserContext);
+    const getFreelancerPortfolio = () => {
+        axios.get(BaseURL + `cv/project/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            console.log(response.data.userProjects);
+            setProjects(response.data.userProjects);
+            console.log(token);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    // const lastPageIndex = currentPage * postsPerPage;
+    // const firstPageIndex = lastPageIndex - postsPerPage;
+
+    useEffect(() => {
+        getFreelancerPortfolio();
+    }, [])
   const previousProjects = [
     {
       name: "E-Commerce Website",
@@ -30,16 +61,16 @@ function PortfolioComponent() {
   ];
   
   return (
-    <div className='px-12 py-2'>
+    <>{projects!==null?<><div className='px-12 py-2'>
       <h2 className="py-2 font-semibold text-lg">Previous Projects</h2>
       <div>
-        {previousProjects.length ? (previousProjects.map((project,index)=>(
+        {projects.length ? (projects.map((project,index)=>(
           <ProjectComponent project={project} key={index}/>
         ))) :(
           <p className='min-h-[500px]'>No projects found</p>
         )}
       </div>
-    </div>
+    </div></>:<Loader/>}</>
   )
 }
 

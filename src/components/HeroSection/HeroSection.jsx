@@ -116,7 +116,7 @@ const HeroSection = () => {
             <motion.img
               src={businessman}
               alt="businessman"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 drop-shadow-businessman"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 drop-shadow-businessman"
               initial={{ opacity: 0, x: '100%', y: '-50%' }} // Start off-screen to the right and slightly down
               animate={{ opacity: 1, x: '-50%', y: '-50%' }} // Animate to the final centered position
               transition={{ delay: 1.0, duration: 0.7 }} // Delay slightly longer before starting the animation

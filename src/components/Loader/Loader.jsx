@@ -34,7 +34,7 @@ const StyledWrapper = styled.div`
 }
 
 .ball {
-  background: #fff;
+  background: var(--primary-700);
 }
 
 .ball:nth-child(2) {

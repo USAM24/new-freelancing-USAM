@@ -1,8 +1,9 @@
 import React from "react";
 import ClientComponent from "../ClientComponent/ClientComponent";
+import Loader from "../Loader/Loader";
 
-function ProfileComponent() {
-  const User = {
+function ProfileComponent({User}) {
+  const Users = {
     description:
       "Jane Doe is a seasoned full-stack developer with over 10 years of experience in building and maintaining web applications. She specializes in creating robust, scalable, and user-friendly interfaces that deliver a seamless experience across all devices. Jane has a deep understanding of both front-end and back-end technologies, allowing her to work on a wide range of projects from simple landing pages to complex enterprise-level applications. She is passionate about learning new technologies and constantly improves her skill set to stay ahead in the ever-evolving tech industry.",
     skills: ["HTML", "Django", "PostgreSQL"],
@@ -29,15 +30,15 @@ function ProfileComponent() {
   };
 
   return (
-    <div className="p-2 px-12">
+    <>{User!=null?<><div className="p-2 px-12">
       <h2 className="py-2 font-semibold text-lg">About Me</h2>
-      <p className="py-2 ">{User.description}</p>
+      <p className="py-2 ">{User.profileSummary}</p>
 
       <div className="py-4">
         <h2 className="py-2 font-semibold text-lg">Skills</h2>
         <div className="flex flex-wrap flex-row">
-          {User.skills.map((skill, index) => (
-            <div className="bg-[#037C6A] text-white rounded-md p-2 px-4 mx-2">
+          {User.userSkills.map((skill, index) => (
+            <div key={index} className="bg-[#037C6A] text-white rounded-md p-2 px-4 mx-2">
               {skill}
             </div>
           ))}
@@ -46,12 +47,12 @@ function ProfileComponent() {
       <div className="py-4">
         <h2 className="py-2 font-semibold text-lg">Review Clients</h2>
         <div className="grid grid-cols-4 gap-4">
-          {User.clientReviews.map((review, index) => (
+          {/* {User.clientReviews.map((review, index) => (
             <ClientComponent review={review} key={index}/>
-          ))}
+          ))} */}
         </div>
       </div>
-    </div>
+    </div></>:<Loader/>}</>
   );
 }
 

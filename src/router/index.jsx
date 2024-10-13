@@ -20,6 +20,9 @@ import JobOverview from '../pages/JobOverview/JobOverview';
 import FindJobPage from '../pages/FindJob/FindJobPage.jsx';
 import PaymentPage from '../pages/Payment/PaymentPage.jsx';
 import FreelancerProfilePage from '../pages/FreelancerProfile/FreelancerProfilePage.jsx';
+import ProjectsClient from '../pages/ProjectsClient/ProjectsClient.jsx';
+import FreelancerProposal from '../pages/FreelancerProposal/FreelancerProposal.jsx';
+import ProposalProjects from '../pages/ProposalProjects/ProposalProjects.jsx';
 
 
 const router = createBrowserRouter(
@@ -36,10 +39,14 @@ const router = createBrowserRouter(
         <Route path="categories/:id" />
         <Route path="profile/:id" element={<ProfilePage/>} />
         <Route path="freelancer/:id" element={<FreelancerProfilePage/>} />
+        <Route path="freelancer/:id/projects" element={<ProjectsClient/>} />
+        <Route path="freelancer/:id/proposals" element={<ProposalProjects/>} />
+        <Route path="/freelancer/:id/projects/propsal/:id" element={<FreelancerProposal/>} />
         <Route path="find-job" element={<FindJobPage/>} />
         <Route path="job-details/:id" element={<JobDetailsPage/>} />
         <Route path="job-overview/:id" element={<JobOverview/>} />
         <Route path="payment" element={<PaymentPage/>} />
+        <Route path="/edit-job/:projectId" element={<PostJob />} />
       </Route>
     </>
   )
