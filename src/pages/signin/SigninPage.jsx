@@ -59,7 +59,7 @@ export default function SigninPage() {
         localStorage.setItem('Token_Value', data.token);
         saveDataUser();
       } else {
-        setError("Invalid username or password");
+        setError("Invalid email or password");
         console.error("Error logging in:", response);
         setTimeout(() => {
           setError("");
@@ -162,7 +162,7 @@ export default function SigninPage() {
                 </Link>
               </div>
               <div className="mb-11">
-                {error && <p className="text-red-500 text-xs italic">{error}</p>}
+                {error && <p className="text-red-800 text-xs italic">{error}</p>}
               </div>
               <div className="flex justify-end mt-7">
 

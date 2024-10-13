@@ -10,7 +10,7 @@ import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 export default function SecondPage() {
-  const { skills, setSkills, jobTitle, setJobTitle, exp, setExp, pay, setPay, fixedPrice ,hourlyRate,setFixedPrice,setHourlyRate } =
+  const { skills, setSkills, jobTitle, setJobTitle, exp, setExp, pay, setPay, fixedPrice ,hourlyRate,setFixedPrice,setHourlyRate,setEstimatedHours } =
     useContext(PostJobContext);
 
     useEffect(() => {
@@ -153,6 +153,7 @@ export default function SecondPage() {
                   setValue={setPay}
                   hourlyRate={hourlyRate}
                 setHourlyRate={setHourlyRate}
+                setEstimatedHours={setEstimatedHours}
                 />
                 <RadioCard
                   title="Fixed Price"

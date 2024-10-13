@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function RadioCard({ title, Icon, description, name, value,selectedValue, setValue,otherCategory,
-  setOtherCategory, hourlyRate,setHourlyRate,fixedPrice,setFixedPrice  }) {
+  setOtherCategory, hourlyRate,setHourlyRate,fixedPrice,setFixedPrice,estimatedHours,setEstimatedHours  }) {
   const handleDivClick = () => {
     document.getElementById(value).click();
   };
@@ -15,6 +15,9 @@ export default function RadioCard({ title, Icon, description, name, value,select
   };
   const handleHourlyRateInputChange = (e) => {
     setHourlyRate(e.target.value);
+  };
+  const handleEstimatedHoursInputChange = (e) => {
+    setEstimatedHours(e.target.value);
   };
   const handleFixedPriceInputChange = (e) => {
     setFixedPrice(e.target.value);
@@ -36,25 +39,32 @@ export default function RadioCard({ title, Icon, description, name, value,select
           type="text"
           value={otherCategory}
           onChange={handleCustomInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
           placeholder="Enter your value"
         />
       )}
-          {title === "Hourly Rate" && (
+          {title === "Hourly Rate" && (<>
         <input
-          type="number"
+          type="text"
           value={hourlyRate}
           onChange={handleHourlyRateInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
-          placeholder="Enter your value"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
+          placeholder="Enter your budget"
         />
+        <input
+          type="number"
+          value={estimatedHours}
+          onChange={handleEstimatedHoursInputChange}
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          placeholder="Enter Estimated Hours"
+        /></>
       )}
           {title === "Fixed Price" && (
         <input
           type="number"
           value={fixedPrice}
           onChange={handleFixedPriceInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
           placeholder="Enter your value"
         />
       )}
