@@ -10,11 +10,36 @@ import useReactQuery from '../../hooks/useReactQuery'; // Custom hook for React 
 import UserProfileNav from '../UserProfileNav'; // User profile navigation component
 import Button from '../ui/Button';
 import { UserContext } from '../../Contexts/UserContext'
+import { BaseURL } from '../../api/BaseURL';
 
-const Navbar = ({setDarkMode,darkMode}) => {
+const Navbar = ({ setDarkMode, darkMode }) => {
   let navigate = useNavigate();
   // State to manage the open/close state of the mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const dropdownVariants = {
+    closed: {
+      opacity: 0,
+      scale: 0.95,
+      pointerEvents: 'none',
+    },
+    open: {
+      opacity: 1,
+      scale: 1,
+      pointerEvents: 'auto',
+      transition: {
+        duration: 0.2, // Adjust animation duration as needed
+        ease: 'easeOut',
+      },
+    },
+  };
 
   // State to store navigation data fetched from the API
   // const [navData, setNavData] = useState([]);
@@ -42,7 +67,7 @@ const Navbar = ({setDarkMode,darkMode}) => {
   //     setNavData(data);
   //   }
   // }, [data]);
-  const  navData= [
+  const navData = [
     { id: 1, link: "/", name: "Home" },
     { id: 2, link: "/find-job", name: "Find Jobs" },
     { id: 3, link: "/find-freelancers", name: "Find Freelancers" },
@@ -101,29 +126,99 @@ const Navbar = ({setDarkMode,darkMode}) => {
         </PopoverGroup>
 
         {/* Desktop authentication buttons */}
-        <div className="hidden lg:flex lg:justify-end space-x-5">
+        <div className="hidden lg:flex lg:justify-end space-x-5 z-20">
           {!token ? (
             <div className="space-x-5">
-              <Button width={'md'} variant={'outline'}>
+              {/* <Button width={'md'} variant={'outline'}>
                 <Link to={'/sign-in'}>Login</Link>
-              </Button>
-              <Button width={'md'} variant={'primary'}>
+              </Button> */}
+              <Link to={'/sign-in'}><Button width={'md'} variant={'outline'}>Login</Button></Link>
+              <Link to={'/sign-up'}><Button width={'md'} variant={'primary'}>Sign Up</Button></Link>
+              {/* <Button width={'md'} variant={'primary'}>
                 <Link to={'/sign-up'}>Sign Up</Link>
-              </Button>
+              </Button> */}
             </div>
           ) : (
             <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5'>
               {/* <UserProfileNav /> */}
-              {userData!=null && <><img src={userData.image} alt="" />
-              <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link></>}
-              <Button width={'md'} variant={'primary'}>
+              {userData != null &&
+                <><div className='w-1/4 rounded-full flex justify-end'><Link className='flex justify-end' to={`/freelancer/${userData.id}`}><img src={BaseURL + (userData.image)} alt="UserImage" className='w-1/2 rounded-full' /></Link></div>
+                  <div className='relative inline-block text-left' role='button' onClick={handleDropdownToggle}><div>
+                    <button type="button" className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md text-md font-semibold" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                      {userData.firstName}
+                      <i className="fa-solid fa-chevron-down"></i>
+                    </button>
+                  </div>
+                    {dropdownOpen && (
+                      <motion.div
+                        variants={dropdownVariants}
+                        animate={dropdownOpen ? 'open' : 'closed'}
+                        initial="closed"
+                        className={`origin-top-left absolute left-0 mt-5 w-48 rounded-md shadow-lg bg-stone-200 dark:bg-stone-800 ring-1 ring-black ring-opacity-5 transform ${dropdownOpen ? '' : 'pointer-events-none'}`}
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-button"
+                        tabIndex="-1"
+                      >
+                        <div className="py-1" role="none">
+                          <Link
+                            to={`/freelancer/${userData.id}`}
+                            className="block px-4 py-2 text-sm text-primary-700 hover:bg-gray-100"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-0"
+                          >
+                            Profile
+                          </Link>
+                          <Link
+                            to={`/freelancer/${userData.id}/projects`}
+                            className="block px-4 py-2 text-sm text-primary-700 hover:bg-gray-100"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-1"
+                          >
+                            Projects
+                          </Link>
+                          <Link
+                            to={`/freelancer/${userData.id}/proposals`}
+                            className="block px-4 py-2 text-sm text-primary-700 hover:bg-gray-100"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-2"
+                          >
+                            Proposals
+                          </Link>
+                          <Link
+                            to={``}
+                            className="block px-4 py-2 text-sm text-primary-700 hover:bg-gray-100"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-3"
+                          >
+                            Payment
+                          </Link>
+                          <Link
+                            to={'/sign-in'}
+                            className="block px-4 py-2 text-sm text-primary-700 hover:bg-gray-100"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-4"
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div></>}
+              {/* <Button width={'md'} variant={'primary'}>
                 <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link>
-              </Button>
+              </Button> */}
             </div>
           )}
-          <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
+          <button onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <i className="fa-solid fa-sun text-pure-white text-2xl"></i> : <i className="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
         </div>
-        
+
       </nav>
 
       {/* Mobile menu */}
@@ -142,7 +237,7 @@ const Navbar = ({setDarkMode,darkMode}) => {
               transition={{ duration: 0.3 }} // Animation duration
               className="fixed inset-0 z-10 overflow-y-auto"
             >
-              <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-primary-700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <DialogPanel className="fixed inset-y-0 right-0 z-30 w-full overflow-y-auto bg-primary-700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 {/* Close button and logo in mobile menu */}
                 <div className="flex items-center justify-between">
                   <Link to="/" className="-m-1.5 p-1.5">
@@ -186,21 +281,21 @@ const Navbar = ({setDarkMode,darkMode}) => {
                     {/* Authentication buttons in mobile menu */}
                     <div className="py-8 space-y-2">
                       <NavLink
-                        to="/sign-in"
+                        to={`/freelancer/${userData.id}`}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
                         {token ? <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link> : 'Login'}
                       </NavLink>
 
                       <NavLink
-                        to="sign-up"
+                        to="sign-in"
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
                         {token ? <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link> : 'Register'}
                       </NavLink>
                     </div>
-                      <button onClick={()=>{setDarkMode(!darkMode)}}>{darkMode?<i className="fa-solid fa-sun text-pure-white text-2xl"></i>:<i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
-                    </div>
+                    <button onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <i className="fa-solid fa-sun text-pure-white text-2xl"></i> : <i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
+                  </div>
                 </div>
               </DialogPanel>
             </motion.div>

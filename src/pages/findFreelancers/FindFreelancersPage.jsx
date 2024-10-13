@@ -2,11 +2,42 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import SearchIcon from "@mui/icons-material/Search";
 import CheckListItem from "../../components/CheckListItem/CheckListItem";
 import FreelancerIcon from "../../components/FreelancerIcon/FreelancerIcon";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from '../../Contexts/UserContext';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BaseURL } from "../../api/BaseURL";
+import Loader from "../../components/Loader/Loader";
 
 const FindFreelancersPage = () => {
   const [checkedCategories, setCheckedCategories] = useState(["All"]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [freelancers, setFreelancers] = useState(null);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(5);
+    const navigate = useNavigate();
+    const { token } = useContext(UserContext);
+    const getFreelancers = () => {
+        axios.get(BaseURL + `users/freelancers`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            console.log(response.data.freelancers);
+            setFreelancers(response.data.freelancers);
+            console.log(token);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    // const lastPageIndex = currentPage * postsPerPage;
+    // const firstPageIndex = lastPageIndex - postsPerPage;
+
+    useEffect(() => {
+        getFreelancers();
+    }, [])
 
   const categories = [
     "All",
@@ -19,7 +50,7 @@ const FindFreelancersPage = () => {
     "Writing & Translation"
   ];
 
-  const freelancers = [
+  const freelancerss = [
     {
       id: 1,
       name: "Alice Johnson",
@@ -105,7 +136,7 @@ const FindFreelancersPage = () => {
   };
 
   return (
-    <div className="container mb-14">
+    <>{freelancers!==null?<><div className="container mb-14">
       <h4 className="text-[#777777]">
         Find Freelancers{" "}
         <span className="text-[#037C6A]">
@@ -144,15 +175,15 @@ const FindFreelancersPage = () => {
               (freelancer) =>
                 (checkedCategories.includes(freelancer.category) ||
                   checkedCategories.includes("All")) &&
-                (freelancer.name.toLowerCase().includes(searchQuery) ||
-                  freelancer.job.toLowerCase().includes(searchQuery))
+                (freelancer.firstName.toLowerCase().includes(searchQuery) ||
+                  freelancer.jobTitle.toLowerCase().includes(searchQuery))
             )
             .map((freelancer, index) => (
               <FreelancerIcon freelancer={freelancer} key={index} />
             ))}
         </div>
       </div>
-    </div>
+    </div></>:<Loader/>}</>
   );
 };
 

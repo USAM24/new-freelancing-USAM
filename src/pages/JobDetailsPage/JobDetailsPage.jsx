@@ -82,26 +82,26 @@ const JobDetailsPage = () => {
 
             try {
                 const response = await fetch(BaseURL + `proposals/apply/${id}`, {
-                  method: 'POST',
-                  headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(proposal), // Log data being sent
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(proposal), // Log data being sent
                 });
-            
+
                 if (response.ok) {
                     const data = await response.json();
                     console.log(data);
                     console.log(proposal);
                 } else {
-                  // Capture and log error details from response
-                  const errorData = await response.json();
-                  console.error("Error response:", errorData);
+                    // Capture and log error details from response
+                    const errorData = await response.json();
+                    console.error("Error response:", errorData);
                 }
-              } catch (error) {
+            } catch (error) {
                 console.error("Failed to post job data:", error);
-              }
+            }
 
             // const response = await fetch(BaseURL + `proposals/apply/${id}`, {
             //     method: 'POST',
