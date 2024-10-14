@@ -121,7 +121,7 @@ const ProjectsClient = () => {
                                         <div className='flex justify-between'>
                                             <h2 className='text-primary-700 text-2xl font-bold'>{project.jobTitle}</h2>
                                             <div>
-                                                <i role='button' onClick={() => handleDelete(project.id)} className="text-3xl ms-9 text-primary-700 fa-regular fa-trash-can"></i>
+                                                <i role='button' onClick={() => handleDelete(project.id)} className="text-3xl ms-9 fa-solid fa-trash text-red-500"></i>
                                             </div>
                                         </div>
                                         <div><p className='text-stone-500'>{project.description}</p></div>

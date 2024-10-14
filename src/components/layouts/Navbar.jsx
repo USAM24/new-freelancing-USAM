@@ -126,7 +126,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
         </PopoverGroup>
 
         {/* Desktop authentication buttons */}
-        <div className="hidden lg:flex lg:justify-end space-x-5 z-20">
+        <div className="hidden lg:flex lg:justify-end space-x-5 z-20 w-96 h-full">
           {!token ? (
             <div className="space-x-5">
               {/* <Button width={'md'} variant={'outline'}>
@@ -139,10 +139,10 @@ const Navbar = ({ setDarkMode, darkMode }) => {
               </Button> */}
             </div>
           ) : (
-            <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5'>
+            <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5 w-full'>
               {/* <UserProfileNav /> */}
               {userData != null &&
-                <><div className='w-1/4 rounded-full flex justify-end'><Link className='flex justify-end' to={`/freelancer/${userData.id}`}><img src={BaseURL + (userData.image)} alt="UserImage" className='w-1/2 rounded-full' /></Link></div>
+                <><div className='w-1/3 h-2/3 rounded-full flex justify-end'><Link className='flex justify-end rounded-full w-1/2' to={`/freelancer/${userData.id}`}><img style={{ borderRadius: '100%' }} src={BaseURL + (userData.image)} alt="UserImage" className='w-full h-full' /></Link></div>
                   <div className='relative inline-block text-left' role='button' onClick={handleDropdownToggle}><div>
                     <button type="button" className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md text-md font-semibold" id="menu-button" aria-expanded="true" aria-haspopup="true">
                       {userData.firstName}
