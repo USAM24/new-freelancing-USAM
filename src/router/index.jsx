@@ -24,6 +24,7 @@ import ProjectsClient from '../pages/ProjectsClient/ProjectsClient.jsx';
 import FreelancerProposal from '../pages/FreelancerProposal/FreelancerProposal.jsx';
 import ProposalProjects from '../pages/ProposalProjects/ProposalProjects.jsx';
 import PrivateRoute from '../components/PrivateRoute/PrivateRoute.jsx';
+import PaymentTest from '../pages/PaymentTest/PaymentTest.jsx';
 
 const router = createBrowserRouter(
   
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
         <Route path="contact-us" element={<ContactUsPage />} />
         {/* <Route path="post-job" element={<PostJob/>} /> */}
         <Route path="categories/:id" />
+        <Route path="test" element={<PaymentTest/>} />
         {/* <Route path="profile/:id" element={<ProfilePage/>} />
         <Route path="freelancer/:id" element={<FreelancerProfilePage/>} />
         <Route path="freelancer/:id/projects" element={<ProjectsClient/>} />
@@ -49,7 +51,7 @@ const router = createBrowserRouter(
         <Route path="/edit-job/:projectId" element={<PostJob />} /> */}
         {/* <Route path="find-job" element={<FindJobPage />} /> */}
 
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}> */}
           <Route path="find-job" element={<FindJobPage />} />
           <Route path="post-job" element={<PostJob/>} />
           <Route path="find-freelancers" element={<FindFreelancersPage />} />
@@ -61,8 +63,9 @@ const router = createBrowserRouter(
           <Route path="job-details/:id" element={<JobDetailsPage/>} />
           <Route path="job-overview/:id" element={<JobOverview/>} />
           <Route path="payment" element={<PaymentPage/>} />
+
           <Route path="/edit-job/:projectId" element={<PostJob />} />
-        </Route>
+        {/* </Route> */}
       </Route>
     </>
   )
