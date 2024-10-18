@@ -55,7 +55,7 @@ const FreelancerCategories = ({ categories }) => {
             {/* Apply individual item animation variants */}
             <Link
               to={`/categories/${id}`} // Dynamic link to the category page
-              className="py-6 px-4 flex flex-col gap-4 bg-neutral-50 rounded-[10px]" // Styling for the category card
+              className="py-6 my-3 px-4 flex flex-col gap-4 bg-neutral-50 rounded-[10px]" // Styling for the category card
             >
               <img src={icon} alt={title} className="w-6 h-6" />{' '}
               {/* Category icon */}

@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import "../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
 import Loader from '../../components/Loader/Loader';
 import PaginationComponent from '../../components/Pagination/Pagination';
+import { errorNotification, successNotification } from '../../hooks/Notification';
 
 const ProjectsClient = () => {
     const [projects, setProjects] = useState(null);
@@ -51,7 +52,9 @@ const ProjectsClient = () => {
                 if (response.ok) {
                     // Handle successful deletion
                     console.log('Project deleted successfully');
-                    navigate('/'); // Navigate to the home page or other appropriate page
+                    successNotification('Project deleted successfully')
+                    getProjects();
+                    // navigate('/'); // Navigate to the home page or other appropriate page
                 } else {
                     // Handle failure, log error response
                     const errorData = await response.json();
@@ -59,9 +62,10 @@ const ProjectsClient = () => {
                 }
             } catch (error) {
                 console.error('Failed to delete project:', error);
+                errorNotification(error.message)
             }
         } else {
-            alert('You should login first');
+            errorNotification('You should login first');
         }
     }
     async function handleCancel(projectId) {
@@ -80,7 +84,9 @@ const ProjectsClient = () => {
                 if (response.ok) {
                     // Handle successful deletion
                     console.log('Project closed successfully');
-                    navigate('/'); // Navigate to the home page or other appropriate page
+                    successNotification('Project closed successfully')
+                    getProjects();
+                    // navigate('/'); // Navigate to the home page or other appropriate page
                 } else {
                     // Handle failure, log error response
                     const errorData = await response.json();
@@ -88,9 +94,10 @@ const ProjectsClient = () => {
                 }
             } catch (error) {
                 console.error('Failed to close project:', error);
+                errorNotification(error.message)
             }
         } else {
-            alert('You should login first');
+            errorNotification('You should login first');
         }
     }
     return (

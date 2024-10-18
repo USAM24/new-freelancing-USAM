@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BaseURL } from '../../api/BaseURL';
 import Loader from '../../components/Loader/Loader';
 import PaginationComponent from '../../components/Pagination/Pagination';
+import { errorNotification, successNotification } from '../../hooks/Notification';
 
 const FreelancerProposal = () => {
     const [proposals, setProposals] = useState(null);
@@ -48,17 +49,21 @@ const FreelancerProposal = () => {
                 if (response.ok) {
                     // Handle successful deletion
                     console.log('Proposal accepted successfully');
-                    navigate('/'); // Navigate to the home page or other appropriate page
+                    successNotification('Proposal accepted successfully');
+                    getProposals();
+                    // navigate('/'); // Navigate to the home page or other appropriate page
                 } else {
                     // Handle failure, log error response
                     const errorData = await response.json();
                     console.error('Error Accepting proposal:', errorData);
+                    errorNotification(errorData.message)
                 }
             } catch (error) {
                 console.error('Failed to accept project:', error);
+                errorNotification(error.message)
             }
         } else {
-            alert('You should login first');
+            errorNotification('You should login first');
         }
     }
     async function handleReject(projectId,proposalId) {
@@ -77,17 +82,22 @@ const FreelancerProposal = () => {
                 if (response.ok) {
                     // Handle successful deletion
                     console.log('Proposal rejected successfully');
-                    navigate('/'); // Navigate to the home page or other appropriate page
+                    successNotification('Proposal rejected successfully')
+                    getProposals();
+                    // navigate('/'); // Navigate to the home page or other appropriate page
                 } else {
                     // Handle failure, log error response
                     const errorData = await response.json();
                     console.error('Error Rejecting proposal:', errorData);
+                    errorNotification(errorData.message)
+
                 }
             } catch (error) {
                 console.error('Failed to reject project:', error);
+                errorNotification(error.message)
             }
         } else {
-            alert('You should login first');
+            errorNotification('You should login first');
         }
     }
 
@@ -107,21 +117,21 @@ const FreelancerProposal = () => {
                         <div key={index} className="grid grid-cols-1">
                             <div className="border border-primary-400 rounded-lg shadow-md p-8 my-5">
                                 <div className="grid grid-rows-3 grid-flow-col">
-                                    <div className='flex justify-between items-center'>
-                                        <div className='flex justify-between items-center'>
-                                            <div className="w-1/6">
-                                                <img className='w-full rounded-full' src={BaseURL + proposal.user.image} alt="" />
+                                    <div className='flex flex-col md:flex-row justify-between items-center'>
+                                        <div className='flex justify-between items-center gap-x-4 mb-3'>
+                                            <div className="w-10 h-10">
+                                                <img className='w-full h-full rounded-full' src={BaseURL + proposal.user.image} alt="" />
                                             </div>
                                             <h2>{proposal.user.firstName} {proposal.user.lastName}</h2>
                                             <h3>{proposal.user.jobTitle}</h3>
                                         </div>
                                         <div>
-                                            <Link><button onClick={()=>handleAccept(proposal.projectId,proposal.id)} className='px-12 rounded-lg py-3 md:ms-5 w-full md:w-auto border-2 border-primary-700 bg-primary-700 text-white'>Accept</button></Link>
-                                            <Link><button onClick={()=>handleReject(proposal.projectId,proposal.id)} className='px-12 rounded-lg py-3 md:ms-5 w-full md:w-auto border-2 border-stone-500 text-stone-500'>Reject</button></Link>
+                                            <Link><button onClick={()=>handleAccept(proposal.projectId,proposal.id)} className='px-12 rounded-lg py-3 mb-3 md:ms-5 w-full md:w-auto border-2 border-primary-700 bg-primary-700 text-white'>Accept</button></Link>
+                                            <Link><button onClick={()=>handleReject(proposal.projectId,proposal.id)} className='px-12 rounded-lg py-3 mb-3 md:ms-5 w-full md:w-auto border-2 border-stone-500 text-stone-500'>Reject</button></Link>
                                         </div>
                                     </div>
                                     <div className='flex items-center'><h3 className='text-primary-700 text-lg'>Proposal</h3></div>
-                                    <div className='border border-primary-400 bg-slate-200 dark:bg-stone-800 rounded-lg p-3'>{proposal.coverLetter}</div>
+                                    <div className='border w-full border-primary-400 bg-slate-200 dark:bg-stone-800 rounded-lg p-3'>{proposal.coverLetter}</div>
                                 </div>
                             </div>
                         </div>

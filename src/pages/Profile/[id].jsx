@@ -96,9 +96,9 @@ const ProfilePage = () => {
   return (
     <>{User!==null?<><div className="py-4">
       <div className="flex align-senter justify-center m-6">
-        <img src={profile} alt="profile" className="w-20 h-20" />
+        <img src={BaseURL + User.image} alt="profile" className="w-32 h-32 rounded-full" />
       </div>
-      <div className="flex flex-row justify-center align-center">
+      <div className="flex flex-col md:flex-row justify-center items-center mb-3">
         <h4 className="px-8">{User.firstName+" "+User.lastName}</h4>
         <h4 className="px-8">{User.category}</h4>
         <h4 className="px-8">{User.jobTitle}</h4>
@@ -133,7 +133,7 @@ const ProfilePage = () => {
           </button>
 
           <button
-            className="ml-auto px-12 p-2 rounded-md bg-[#037C6A] text-white hover:bg-[#fff] hover:text-[#037C6A] transition duration-300"
+            className="ml-auto px-12 p-2 mb-2 rounded-md bg-[#037C6A] text-white hover:bg-[#fff] hover:text-[#037C6A] transition duration-300"
             onClick={() => setPage("Hire")}
           >
             Hire Me

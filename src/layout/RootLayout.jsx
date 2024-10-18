@@ -3,8 +3,10 @@ import Navbar from '../components/layouts/Navbar';
 import Footer from '../components/layouts/Footer';
 import { useContext, useEffect, useState } from 'react';
 import useLocalStorage from 'use-local-storage';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { UserProvider } from '../Contexts/UserContext';
+import { ToastContainer } from 'react-toastify';
 const RootLayout = () => {
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
   useEffect(()=>{
@@ -23,6 +25,7 @@ const RootLayout = () => {
       </div>
       <Footer/>
     </main>
+    <ToastContainer/>
     </UserProvider>
   );
 };

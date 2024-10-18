@@ -8,6 +8,7 @@ import { UserContext } from '../../Contexts/UserContext.jsx';
 import axios from 'axios';
 import { BaseURL } from '../../api/BaseURL.js';
 import Loader from '../../components/Loader/Loader.jsx';
+import { errorNotification, successNotification } from '../../hooks/Notification.jsx';
 
 const JobDetailsPage = () => {
     const [job, setJob] = useState(null)
@@ -99,6 +100,7 @@ const JobDetailsPage = () => {
                     const data = await response.json();
                     console.log(data);
                     console.log(proposal);
+                    successNotification('Sending Proposal Job Successfully')
                     navigate('/')
                 } else {
                     // Capture and log error details from response
@@ -106,7 +108,8 @@ const JobDetailsPage = () => {
                     console.error("Error response:", errorData);
                 }
             } catch (error) {
-                console.error("Failed to post job data:", error);
+                console.error("Failed to send job proposal:", error);
+                errorNotification('Failed to send job proposal')
             }
 
             // const response = await fetch(BaseURL + `proposals/apply/${id}`, {

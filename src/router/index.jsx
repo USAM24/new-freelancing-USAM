@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         <Route path="/edit-job/:projectId" element={<PostJob />} /> */}
         {/* <Route path="find-job" element={<FindJobPage />} /> */}
 
-        {/* <Route element={<PrivateRoute />}> */}
+        <Route element={<PrivateRoute />}>
           <Route path="find-job" element={<FindJobPage />} />
           <Route path="post-job" element={<PostJob/>} />
           <Route path="find-freelancers" element={<FindFreelancersPage />} />
@@ -65,7 +65,7 @@ const router = createBrowserRouter(
           <Route path="payment" element={<PaymentPage/>} />
 
           <Route path="/edit-job/:projectId" element={<PostJob />} />
-        {/* </Route> */}
+        </Route>
       </Route>
     </>
   )

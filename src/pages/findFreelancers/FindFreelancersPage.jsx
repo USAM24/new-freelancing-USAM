@@ -156,7 +156,7 @@ const FindFreelancersPage = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-[1fr_3fr]">
+      <div className="grid md:grid-cols-[1fr_3fr]">
         <div className="bg-[#D1FAF4] dark:bg-primary-700 h-full p-6 rounded-lg">
           <ul className="flex flex-col">
             {categories.map((category, index) => (

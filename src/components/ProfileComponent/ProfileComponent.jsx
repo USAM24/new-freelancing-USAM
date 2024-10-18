@@ -38,7 +38,7 @@ function ProfileComponent({User}) {
         <h2 className="py-2 font-semibold text-lg">Skills</h2>
         <div className="flex flex-wrap flex-row">
           {User.userSkills.split(',').map((skill, index) => (
-            <div key={index} className="bg-[#037C6A] text-white rounded-md p-2 px-4 mx-2">
+            <div key={index} className="bg-[#037C6A] text-white rounded-md p-2 px-4 mx-2 my-2">
               {skill}
             </div>
           ))}

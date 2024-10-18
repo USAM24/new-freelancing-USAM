@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BaseURL } from '../../api/BaseURL';
 import Loader from '../../components/Loader/Loader';
 import PaginationComponent from '../../components/Pagination/Pagination';
+import { errorNotification, successNotification } from '../../hooks/Notification';
 
 const ProposalProjects = () => {
     const [proposals, setProposals] = useState(null);
@@ -47,6 +48,8 @@ const ProposalProjects = () => {
                 if (response.ok) {
                     // Handle successful deletion
                     console.log('Project deleted successfully');
+                    successNotification('Project deleted successfully');
+                    getProjects();
                     // navigate('/'); // Navigate to the home page or other appropriate page
                 } else {
                     // Handle failure, log error response
@@ -55,9 +58,10 @@ const ProposalProjects = () => {
                 }
             } catch (error) {
                 console.error('Failed to delete project:', error);
+
             }
         } else {
-            alert('You should login first');
+            errorNotification('You should login first');
         }
     }
 
@@ -90,7 +94,7 @@ const ProposalProjects = () => {
                                         </div>
                                         <div className="border border-primary-400 rounded-lg shadow-md p-8 my-5">
                                             <h3 className='text-primary-700 text-xl mb-3'>Job Details</h3>
-                                            <div className="flex items-center justify-between w-1/3 mb-3">
+                                            <div className="flex flex-col md:flex-row items-center justify-between w-1/3 mb-3">
                                                 <div>
                                                     <h3>{proposal.project.timeframe}</h3>
                                                     <h4 className='text-stone-700 mt-1'>{proposal.project.category}</h4>

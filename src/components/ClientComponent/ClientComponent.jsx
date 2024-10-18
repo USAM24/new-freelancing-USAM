@@ -4,7 +4,7 @@ import Stars from '../Stars/Stars'
 
 function ClientComponent({review}) {
   return (
-    <div className="rounded-lg p-4 w-[325px] m-2 flex flex-col bg-white dark:bg-neutral-900">
+    <div className="rounded-lg p-4 w-[300px] md:w-[325px] m-2 flex flex-col bg-white dark:bg-neutral-900">
       {/* <div className="flex flex-row">
         <img
           src={profile}
