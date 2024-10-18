@@ -39,7 +39,7 @@ const HireComponent = () => {
             >
                 {({ setFieldValue }) => (
                     <Form>
-                    <div className='grid grid-cols-2 gap-4'>
+                    <div className='grid md:grid-cols-2 gap-4'>
                         <div>
                         {/* Client Information */}
                         <div className="mb-4">

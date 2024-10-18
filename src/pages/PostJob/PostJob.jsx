@@ -12,6 +12,7 @@ import axios from "axios";
 import { jwtDecode } from '../../../node_modules/jwt-decode';
 import { BaseURL } from "../../api/BaseURL";
 import { UserContext } from "../../Contexts/UserContext";
+import { errorNotification, successNotification } from "../../hooks/Notification";
 
 const PostJob = () => {
   const navigate = useNavigate();
@@ -136,6 +137,7 @@ if (token) {
       setFixedPrice("");
       setEstimatedHours("");
       localStorage.setItem("pgNo", 1);
+      successNotification('Posting Job Successfully')
       navigate("/");
     } else {
       // Capture and log error details from response
@@ -144,6 +146,7 @@ if (token) {
     }
   } catch (error) {
     console.error("Failed to post job data:", error);
+    errorNotification("Failed to post job data")
   }
 } else {
   alert("You should login first");
@@ -360,11 +363,11 @@ if (token) {
             )}
           </motion.div>
         </AnimatePresence>
-        <div className="flex justify-between items-center py-4">
+        <div className="flex flex-col md:flex-row justify-between items-center py-4">
           {pgNo > 1 && (
             <div className="flex items-center">
               <button
-                className="bg-white-500 text-[#037C6A] border-2 border-teal-600 px-8 py-2 rounded hover:bg-[#037C6A] hover:text-white transition duration-300 font-semibold"
+                className="bg-white-500 text-[#037C6A] border-2 border-teal-600 px-8 py-2 my-3 rounded hover:bg-[#037C6A] hover:text-white transition duration-300 font-semibold"
                 type="button"
                 onClick={() => {
                   setDirection(-1); // Set direction to backward
@@ -375,9 +378,9 @@ if (token) {
               </button>
             </div>
           )}
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col md:flex-row items-center space-x-4">
             <button
-              className="bg-white dark:text-black px-8 py-2 rounded font-semibold"
+              className="bg-white dark:text-black px-8 py-2 rounded font-semibold my-2"
               type="button"
               onClick={handleCancel}
             >

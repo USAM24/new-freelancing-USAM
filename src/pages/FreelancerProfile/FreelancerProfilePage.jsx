@@ -11,6 +11,8 @@ import axios from 'axios';
 import { BaseURL } from '../../api/BaseURL';
 import Loader from '../../components/Loader/Loader';
 import EditModal from '../../components/EditModel/EditModel';
+import { data } from 'autoprefixer';
+import { promiseNotification, successNotification } from '../../hooks/Notification';
 const FreelancerProfilePage = () => {
     const { id } = useParams();
     const [profile, setProfile] = useState(null);
@@ -20,6 +22,7 @@ const FreelancerProfilePage = () => {
     const [editData, setEditData] = useState(null); // Store data being edited
     const [selectedProject, setSelectedProject] = useState('');
     const [selectedProjectId, setSelectedProjectId] = useState(null);
+    const { userData, setUserData } = useContext(UserContext);
 
     const formatDate = (apiDate) => {
         const date = new Date(apiDate);
@@ -56,23 +59,45 @@ const FreelancerProfilePage = () => {
             .then((response) => {
                 console.log(response.data);
                 getProjects();
+                successNotification('Deleting Project Successfully')
             }).catch ((error) => {
                 console.error('Error deleting project:', error);
             })
         }
     };
-
+    const fileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
     const saveChanges = (section, data) => {
         let url = '';
         let payload = {};
-        if(data.userSkills == profile.userSkills){
-            data.userSkills = data.userSkills.join(',');
-        }else{
-            data.userSkills
+        let headers = {};
+        // if(data.userSkills === userData.userSkills){
+        //     data.userSkills = data.userSkills.join(',');
+        // }else{
+        //     data.userSkills;
+        // }
+        if (Array.isArray(data.userSkills)) {
+            data.userSkills = data.userSkills.join(',');  // Convert array to comma-separated string
         }
         if (section === 'image') {
             url = BaseURL + `users/updateProfileImage/${id}`;
-            payload = { image: BaseURL +'uploads/profileImages/'+ data.image };
+            payload = { image: data.image };
+            headers={
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            }
+            const updatedUserData = { ...userData, image: localStorage.getItem('profileImage') };
+            console.log(data.image);
+            setUserData(updatedUserData); // Update context state
+            localStorage.setItem('User_Data', JSON.stringify(updatedUserData)); // Update local storage
+            localStorage.setItem('Image_User', JSON.stringify(fileToBase64(userData.image)));
+            console.log(JSON.parse(localStorage.getItem('Image_User')));
         } else if (section === 'user') {
             url = BaseURL + `users/${id}`;
             payload = {
@@ -90,6 +115,13 @@ const FreelancerProfilePage = () => {
                 address: data.address,
                 dateOfBirth: data.dateOfBirth,
             };
+            headers={
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+            const updatedUserData = { ...userData, ...payload };
+            setUserData(updatedUserData); // Update context state
+            localStorage.setItem('User_Data', JSON.stringify(updatedUserData));
         } else if (section === 'projects') {
             if (data.id) {
                 // Existing project (update)
@@ -101,6 +133,10 @@ const FreelancerProfilePage = () => {
                     description: data.description,
                     projectUrl: data.projectUrl,
                 };
+                headers={
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
             } else {
                 // New project (add)
                 url = BaseURL + `cv/project`;
@@ -111,32 +147,41 @@ const FreelancerProfilePage = () => {
                     endDate: data.endDate,
                     description: data.description,
                     projectUrl: data.projectUrl,
-                };
+                }
+                headers={
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+                
             }
             // setSelectedProject('');
 
         }
-
+        promiseNotification(
         axios({
             method: data.id ? 'put' : 'post',
             url,
             data: payload,
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers: headers
         })
             .then((response) => {
                 // Update the profile data after success
-                getFreelancerData(); // Refresh data from server
+                // getFreelancerData(); // Refresh data from server
                 console.log(response);
+                
+                localStorage.setItem('User_Data',JSON.stringify(userData));
+                // console.log(JSON.parse(localStorage.getItem('User_Data')));
+                // console.log(userData);
+                // localStorage.setItem('Image_User', JSON.stringify(fileToBase64(userData.image)));
+                // console.log(JSON.parse(localStorage.getItem('Image_User')));
                 getProjects();
+                // setUserData(userData);
             })
             .catch((error) => {
                 console.log(error);
                 console.log(data);
-            });
-        
+            }),
+        );
     };
 
     const handleProjectSelect = (e) => {
@@ -152,20 +197,24 @@ const FreelancerProfilePage = () => {
     // const {id} = useParams();
     const navigate = useNavigate();
     const token = localStorage.getItem('Token_Value');
-    const getFreelancerData = () => {
-        axios.get(BaseURL + `users/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        }).then((response) => {
-            console.log(response.data.user);
-            setProfile(response.data.user);
-            console.log(token);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+    const storedImage = localStorage.getItem('profileImage');
+    console.log(storedImage);
+    // const getFreelancerData = () => {
+    //     axios.get(BaseURL + `users/me`, {
+    //         headers: {
+    //             'Authorization': `Bearer ${token}`,
+    //             'Content-Type': 'application/json',
+    //         },
+    //     }).then((response) => {
+    //         console.log(response.data.user);
+    //         setProfile(response.data.user);
+    //         console.log(token);
+    //         // localStorage.setItem('User_Data', JSON.stringify(profile));
+    //         // localStorage.setItem('User_Data',JSON.stringify(profile));
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
     // const lastPageIndex = currentPage * postsPerPage;
     // const firstPageIndex = lastPageIndex - postsPerPage;
 
@@ -185,38 +234,38 @@ const FreelancerProfilePage = () => {
     }
 
     useEffect(() => {
-        getFreelancerData();
+        // getFreelancerData();
     }, [])
     useEffect(() => {
         getProjects();
     }, [])
     return (
         <>
-            {profile !== null ? <><div className="container-fliud bg-primary-700">
+            {projects !== null ? <><div className="container-fliud bg-primary-700">
 
                 <div className="grid grid-rows-2 lg:grid-rows-1 grid-cols-12 gap-6 p-10 md:p-14 lg:p-16">
                     <div className="col-span-12 lg:col-span-4 row-span-1 lg:row-span-full">
                         <div className="card bg-pure-white dark:bg-neutral-900 flex flex-col items-center py-24 px-9 rounded-xl shadow-2xl">
                             <div className="imgProfile flex flex-row w-full h-48 justify-center items-center relative">
-                                <img className='w-48 h-full rounded-full' src={BaseURL + profile.image} alt="Profile Picture" />
-                                <i role='button' onClick={() => openModal('image', profile)} className="fa-regular fa-pen-to-square absolute right-0 text-2xl text-primary-700"></i>
+                                <img className='w-48 h-full rounded-full' src={storedImage} alt="Profile Picture" />
+                                <i role='button' onClick={() => openModal('image', userData)} className="fa-regular fa-pen-to-square absolute right-0 text-2xl text-primary-700"></i>
                             </div>
                             <div className='content mt-5 flex flex-col items-center relative w-full'>
-                                <h5 className="text-xl font-medium dark:text-pure-white">{profile.firstName + " " + profile.lastName}</h5>
-                                <i role='button' onClick={() => openModal('user', profile)} className="fa-regular fa-pen-to-square absolute right-0 text-2xl text-primary-700"></i>
-                                <h6 className='text-stone-500 text-lg mb-1'>{profile.jobTitle}</h6>
-                                <h6 className='text-stone-500 text-lg mb-1'>{profile.category}</h6>
-                                <h6 className='text-stone-500 text-lg mb-1'>{profile.address}</h6>
-                                <h6 className='text-stone-500 text-lg mb-5'>{profile.dateOfBirth}</h6>
+                                <h5 className="text-xl font-medium dark:text-pure-white">{userData.firstName + " " + userData.lastName}</h5>
+                                <i role='button' onClick={() => openModal('user', userData)} className="fa-regular fa-pen-to-square absolute right-0 text-2xl text-primary-700"></i>
+                                <h6 className='text-stone-500 text-lg mb-1'>{userData.jobTitle}</h6>
+                                <h6 className='text-stone-500 text-lg mb-1'>{userData.category}</h6>
+                                <h6 className='text-stone-500 text-lg mb-1'>{userData.address}</h6>
+                                <h6 className='text-stone-500 text-lg mb-5'>{userData.dateOfBirth}</h6>
                                 <div className="links flex">
-                                    <a className=' mx-2 w-7' href={profile.facebook}><img className='w-full' src={facebook_icon} alt="" /></a>
-                                    <a className=' mx-2 w-7' href={profile.linkedin}><img className='w-full' src={linkedin_icon} alt="" /></a>
-                                    <a className=' mx-2 w-7' href={profile.github}><img className='w-full' src={github_icon} alt="" /></a>
+                                    <a className=' mx-2 w-7' href={userData.facebook}><img className='w-full' src={facebook_icon} alt="" /></a>
+                                    <a className=' mx-2 w-7' href={userData.linkedin}><img className='w-full' src={linkedin_icon} alt="" /></a>
+                                    <a className=' mx-2 w-7' href={userData.github}><img className='w-full' src={github_icon} alt="" /></a>
                                 </div>
                             </div>
                             <div className='mt-3'>
                                 <i className="fa-solid fa-link"></i>
-                                <a href={profile.portfolio} target="_blank" rel="noopener noreferrer" className="text"> Portfolio</a>
+                                <a href={userData.portfolio} target="_blank" rel="noopener noreferrer" className="text"> Portfolio</a>
                             </div>
                             <button
                                 onClick={() => { }}
@@ -228,7 +277,7 @@ const FreelancerProfilePage = () => {
                             <div className="info w-full flex justify-center items-center">
                                 <div className="salary">
                                     <h5 className='font-medium'>Hourly Salary</h5>
-                                    <h6 className='text-stone-500'>${profile.rate_per_hr} per hour</h6>
+                                    <h6 className='text-stone-500'>${userData.rate_per_hr} per hour</h6>
                                 </div>
                                 {/* <div className="availability">
                                     <h5 className='font-medium'>Availability</h5>
@@ -238,7 +287,7 @@ const FreelancerProfilePage = () => {
                             <div className="w-full mt-5">
                                 <h5 className='font-medium mb-2'>Skills</h5>
                                 <ul>
-                                {profile!==null && profile.userSkills.map((skill,i)=>(<li className='inline-block mx-2 mb-2 p-2 bg-primary-300 rounded-lg font-semibold text-primary-800' key={i}>{skill}</li>))}
+                                {(typeof userData.userSkills === 'string' ? userData.userSkills.split(',') : userData.userSkills || []).map((skill, i) => (<li className='inline-block mx-2 mb-2 p-2 bg-primary-300 rounded-lg font-semibold text-primary-800' key={i}>{skill}</li>))}
                                 </ul>
                             </div>
                         </div>
@@ -249,7 +298,7 @@ const FreelancerProfilePage = () => {
                             <div className="txt w-full">
 
                                 <h2 className='text-2xl md:text-4xl font-medium'>Overview</h2>
-                                <p className='my-5'>{profile.profileSummary}</p>
+                                <p className='my-5'>{userData.profileSummary}</p>
                             </div>
                             <div className="content w-full flex flex-col justify-between lg:flex-row">
                                 <div className="projects relative w-full">

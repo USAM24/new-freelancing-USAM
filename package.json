@@ -38,6 +38,7 @@
     "react-router-dom": "^6.26.0",
     "react-select": "^5.8.1",
     "react-select-country-list": "^2.2.3",
+    "react-toastify": "^10.0.6",
     "redux": "^5.0.1",
     "styled-components": "^6.1.13",
     "use-local-storage": "^3.0.0",

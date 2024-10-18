@@ -31,11 +31,11 @@ const TrustedBySection = ({ data }) => {
   return (
     // Main section with a light gray background.
     <section className="bg-[#E9E9E9]">
-      <div className="container mx-auto py-3  ">
+      <div className="container mx-auto py-3 ">
         {' '}
         {/* Container for centering and padding */}
         <motion.div
-          className="flex items-center space-x-6" // Flexbox container for horizontal layout with space between items.
+          className="flex flex-col md:flex-row items-center space-x-6" // Flexbox container for horizontal layout with space between items.
           initial="hidden" // Initial animation state is "hidden".
           animate="visible" // On render, animate to "visible" state.
           variants={containerVariants} // Apply containerVariants for animation.
@@ -52,7 +52,7 @@ const TrustedBySection = ({ data }) => {
           {validData.map(({ icon, company }, index) => (
             <motion.div
               key={company} // Unique key based on the company name.
-              className="space-x-1 flex items-center text-[#999999]" // Flexbox for icon and company name with spacing.
+              className="py-2 space-x-1 flex items-center text-[#999999]" // Flexbox for icon and company name with spacing.
               variants={itemVariants} // Apply itemVariants for animation.
               transition={{ duration: 0.5, delay: 0.7 * (index + 1) }} // Add delay based on the index for staggered animation.
             >

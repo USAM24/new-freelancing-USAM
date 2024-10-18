@@ -21,6 +21,12 @@ export const UserProvider = ({ children }) => {
         }
     }, []);
     const isAuthenticated = !!token && !!userData;
+    // localStorage.setItem('Is_Auth',isAuthenticated);
+    useEffect(() => {
+        if (userData) {
+            localStorage.setItem('User_Data', JSON.stringify(userData));
+        }
+    }, [userData]); // This will run every time userData is updated
 
     return (
         <UserContext.Provider value={{ userData, setUserData, token, setToken,isAuthenticated }}>

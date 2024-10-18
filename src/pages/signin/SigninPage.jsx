@@ -12,7 +12,7 @@ export default function SigninPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { setUserData, setToken } = useContext(UserContext);
+  const { setUserData, setToken,isAuthenticated } = useContext(UserContext);
 
   async function saveDataUser() {
     const token = localStorage.getItem('Token_Value');
@@ -57,6 +57,7 @@ export default function SigninPage() {
         navigateToLogin();
         const data = await response.json();
         localStorage.setItem('Token_Value', data.token);
+        localStorage.setItem('Is_Auth',true);
         saveDataUser();
       } else {
         setError("Invalid email or password");

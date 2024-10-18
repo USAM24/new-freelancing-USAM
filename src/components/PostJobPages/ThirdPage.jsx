@@ -60,7 +60,7 @@ export default function ThirdPage() {
               cols="50"
               name="description"
               id="description"
-              className="border border-gray-300 p-4 mb-3 mx-3 rounded-md focus:outline-none focus:border-teal-600 dark:text-black hover:border-teal-600 shadow-sm transition duration-300"
+              className="border border-gray-300 p-4 mb-3 mx-3 rounded-md w-full focus:outline-none focus:border-teal-600 dark:text-black hover:border-teal-600 shadow-sm transition duration-300"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder={description ? "" : "I’m looking for..."}

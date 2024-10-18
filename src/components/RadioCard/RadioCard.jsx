@@ -39,7 +39,7 @@ export default function RadioCard({ title, Icon, description, name, value,select
           type="text"
           value={otherCategory}
           onChange={handleCustomInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2 w-full"
           placeholder="Enter your value"
         />
       )}
@@ -48,14 +48,14 @@ export default function RadioCard({ title, Icon, description, name, value,select
           type="text"
           value={hourlyRate}
           onChange={handleHourlyRateInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2 w-full"
           placeholder="Enter your budget"
         />
         <input
           type="number"
           value={estimatedHours}
           onChange={handleEstimatedHoursInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg w-full"
           placeholder="Enter Estimated Hours"
         /></>
       )}
@@ -64,7 +64,7 @@ export default function RadioCard({ title, Icon, description, name, value,select
           type="number"
           value={fixedPrice}
           onChange={handleFixedPriceInputChange}
-          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2"
+          className=" p-2 border-2 border-gray-300 dark:text-black rounded-lg my-2 w-full"
           placeholder="Enter your value"
         />
       )}

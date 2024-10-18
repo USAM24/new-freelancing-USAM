@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import profile from "../../assets/profile.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Stars from "../Stars/Stars";
+import { BaseURL } from "../../api/BaseURL";
 
 const FreelancerIcon = ({ freelancer }) => {
   return (
     <div className="border border-[#B8B8BF] rounded-lg p-2 w-[300px] h-[250px] m-2 flex flex-col">
       <div className="flex flex-row mb-4">
         <img
-          src={freelancer.image}
+          src={BaseURL + freelancer.image}
           alt="profile"
           className="p-2 w-24 h-24 rounded-full object-cover"
         />

@@ -49,6 +49,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
   const handleLogout = () => {
     localStorage.removeItem('Token_Value');
     localStorage.removeItem('User_Data');
+    localStorage.setItem('Is_Auth',false);
     setToken(null);
   };
 
@@ -142,7 +143,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
             <div className='hidden lg:flex lg:justify-end lg:items-center space-x-5 w-full'>
               {/* <UserProfileNav /> */}
               {userData != null &&
-                <><div className='w-1/3 h-2/3 rounded-full flex justify-end'><Link className='flex justify-end rounded-full w-1/2' to={`/freelancer/${userData.id}`}><img style={{ borderRadius: '100%' }} src={BaseURL + (userData.image)} alt="UserImage" className='w-full h-full' /></Link></div>
+                <><div className='w-1/6 h-4/5 rounded-full flex justify-end'><Link className='flex justify-end rounded-full w-full' to={`/freelancer/${userData.id}`}><img style={{ borderRadius: '100%' }} src={localStorage.getItem('profileImage')} alt="UserImage" className='w-full h-full' /></Link></div>
                   <div className='relative inline-block text-left' role='button' onClick={handleDropdownToggle}><div>
                     <button type="button" className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md text-md font-semibold" id="menu-button" aria-expanded="true" aria-haspopup="true">
                       {userData.firstName}
@@ -271,7 +272,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
                         <NavLink
                           to={link}
                           key={id}
-                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
                         >
                           {name}
                         </NavLink>
@@ -280,19 +281,74 @@ const Navbar = ({ setDarkMode, darkMode }) => {
 
                     {/* Authentication buttons in mobile menu */}
                     <div className="py-8 space-y-2">
-                      <NavLink
+                      {token ?<><Link to={`/freelancer/${userData.id}`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        {userData.firstName}
+                      </Link>
+                      <Link to={`/freelancer/${userData.id}/projects`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Projects
+                      </Link>
+                      <Link to={`/freelancer/${userData.id}/proposals`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Proposals
+                      </Link>
+                      <Link to={``}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Payment
+                      </Link>
+                      <Link to={'/sign-in'} onClick={handleLogout}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Logout
+                      </Link></>:
+                      <>
+                      <Link to={`/sign-in`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Login
+                      </Link>
+                      <Link to={`sign-up`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-primary-800"
+                      >
+                        Register
+                      </Link>
+                      </>}
+                      {/* <NavLink
                         to={`/freelancer/${userData.id}`}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
                         {token ? <Link to={`/freelancer/${userData.id}`}>{userData.firstName}</Link> : 'Login'}
                       </NavLink>
+                      <NavLink
+                        to={`/freelancer/${userData.id}/projects`}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                      >
+                        {token ? <Link to={`/freelancer/${userData.id}/projects`}>Projects</Link> : <></>}
+                      </NavLink>
+                      <NavLink
+                        
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                      >
+                        {token ? <Link to={`/freelancer/${userData.id}/proposals`}>Proposals</Link> : <></>}
+                      </NavLink>
+                      <NavLink
+                        
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
+                      >
+                        {token ? <Link to={`payment`}>Payment</Link> : <></>}
+                      </NavLink>
 
                       <NavLink
-                        to="sign-in"
+                        
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-800 dark:text-neutral-100 hover:bg-primary-800 dark:hover:bg-primary-100"
                       >
                         {token ? <Link to={'/sign-in'} onClick={handleLogout}>Logout</Link> : 'Register'}
-                      </NavLink>
+                      </NavLink> */}
                     </div>
                     <button onClick={() => { setDarkMode(!darkMode) }}>{darkMode ? <i className="fa-solid fa-sun text-pure-white text-2xl"></i> : <i class="fa-solid fa-moon text-pure-black dark:text-pure-white text-2xl"></i>}</button>
                   </div>

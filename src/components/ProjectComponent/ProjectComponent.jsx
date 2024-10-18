@@ -2,6 +2,15 @@ import React from "react";
 import ReadMoreRoundedIcon from "@mui/icons-material/ReadMoreRounded";
 
 function ProjectComponent({ project }) {
+  const formatDate = (apiDate) => {
+    const date = new Date(apiDate);
+    const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    });
+    return formattedDate;
+}
   return (
     <div className="flex justify-center align-center">
       <a
@@ -12,7 +21,7 @@ function ProjectComponent({ project }) {
           <div className="flex justify-between">
             <div className="flex flex-col">
               <h3 className="font-semibold">{project.projectName}</h3>
-              <h4 className="text-[#797987]">{project.endDate}</h4>
+              <h4 className="text-[#797987]">{formatDate(project.endDate)}</h4>
             </div>
             <ReadMoreRoundedIcon className="m-4" />
           </div>

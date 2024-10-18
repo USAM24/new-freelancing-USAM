@@ -5,9 +5,11 @@ import { UserContext } from '../../Contexts/UserContext'; // Adjust path as nece
 
 const PrivateRoute = () => {
     const { isAuthenticated } = useContext(UserContext);
+    const isAuth = localStorage.getItem('Is_Auth');
+    console.log('isAuth',isAuth);
     console.log("Is authenticated:", isAuthenticated);
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/sign-in" replace />;
+    return isAuth=='true' ? <Outlet /> : <Navigate to="/sign-in" replace />;
 };
 
 export default PrivateRoute;

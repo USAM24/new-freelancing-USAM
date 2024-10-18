@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Select from 'react-select'; // Import the react-select component
 import countryList from 'react-select-country-list'; // Import the country list
+import { UserContext } from '../../Contexts/UserContext';
 
 const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
     const [formData, setFormData] = useState({});
+    const { userData, setUserData } = useContext(UserContext);
+    const isDarkMode = localStorage.getItem('isDark');
 
     // Update formData when the modal opens or when data changes
     useEffect(() => {
@@ -22,12 +25,34 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
             return date;
         }
     }
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
         });
+    };
+    const handleInputChange = async (e) => {
+        console.log(e.target.files);
+        const { name, value } = e.target;
+        if([name]=='image'){
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const base64String = await convertToBase64(file);
+                    localStorage.setItem('profileImage', base64String);
+                    
+                    setFormData({ ...formData, image: base64String });
+                }
+            setFormData({...formData,[name]:e.target.files[0]});
+            
+        }else{
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
     const handleSubmit = (e) => {
@@ -46,6 +71,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
             address: selectedOption.label, // Store the value (like 'US')
           });
         };
+        
       
         return (
           <div>
@@ -54,7 +80,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
               value={options.find(option => option.label === formData.address)} // Set selected value if it's already in formData
               onChange={changeHandler} // Handle change
               placeholder="Choose your country"
-              className="w-full p-2 border rounded dark:bg-stone-800 dark:text-black"
+              className="w-full p-2 border rounded dark:bg-stone-800 dark:text-black "
             />
           </div>
         );
@@ -71,7 +97,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                     {/* Conditionally render form fields based on section */}
                     {section === 'image' && (
                         <div className="mb-4">
-                            <label className="block text-gray-700">Profile Image</label>
+                            <label className="block text-gray-700 dark:text-gray-200">Profile Image</label>
                             <input
                                 type="file"
                                 name="image"
@@ -85,7 +111,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                         <>
                             <div className="flex justify-between">
                                 <div className="mb-4 w-full me-1">
-                                    <label className="block text-gray-700">First Name</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">First Name</label>
                                     <input
                                         type="text"
                                         name="firstName"
@@ -95,7 +121,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                     />
                                 </div>
                                 <div className="mb-4 w-full mx-1">
-                                    <label className="block text-gray-700">Last Name</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Last Name</label>
                                     <input
                                         type="text"
                                         name="lastName"
@@ -105,7 +131,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                     />
                                 </div>
                                 <div className="mb-4 w-full ms-1">
-                                    <label className="block text-gray-700">Job Title</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Job Title</label>
                                     <input
                                         type="text"
                                         name="jobTitle"
@@ -118,28 +144,31 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                             <div className="flex justify-between">
                                 
                                 <div className="mb-4 w-full me-1">
-                                    <label className="block text-gray-700">Date of Birth</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Date of Birth</label>
 
                                     <input
                                         type="date"
                                         name="dateOfBirth"
                                         value={formData.dateOfBirth || ''}
-                                        className="w-full p-2 border rounded dark:bg-stone-800"
+                                        className="w-full h-3/5 p-2 border rounded dark:bg-stone-800"
                                         onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="mb-4 w-full mx-1">
-                                    <label className="block text-gray-700">Category</label>
-                                    <input
-                                        type="text"
-                                        name="category"
-                                        value={formData.category || ''}
-                                        className="w-full p-2 border rounded dark:bg-stone-800"
-                                        onChange={handleInputChange}
-                                    />
+                                    <label className="block text-gray-700 dark:text-gray-200">Category</label>
+                                    <select id="category" name='category' value={formData.category || ''} onChange={handleInputChange} className='w-full p-2 border rounded dark:bg-stone-800'>
+                                        <option value="">-- Select a category --</option>
+                                        <option value="Development & IT">Development & IT</option>
+                                        <option value="Design & Creative">Design & Creative</option>
+                                        <option value="Finance & Accounting">Finance & Accounting</option>
+                                        <option value="Admin & Customer Support">Admin & Customer Support</option>
+                                        <option value="Sales & Marketing">Sales & Marketing</option>
+                                        <option value="Engineering">Engineering</option>
+                                        <option value="Writing & Translation">Writing & Translation</option>
+                                    </select>
                                 </div>
                                 <div className="mb-4 w-full ms-1">
-                                    <label className="block text-gray-700">Hourly Salary</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Hourly Salary</label>
                                     <input
                                         type="text"
                                         name="rate_per_hr"
@@ -150,7 +179,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                 </div>
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Overview</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Overview</label>
                                 <textarea
                                     name="profileSummary"
                                     value={formData.profileSummary || ''}
@@ -159,7 +188,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                 ></textarea>
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Country</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Country</label>
                                 <CountrySelector setFormData={setFormData} formData={formData}/>
                                     {/* type="text"
                                     name="userSkills"
@@ -170,7 +199,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                             </div>
                             <div className="flex justify-between">
                                 <div className="mb-4 w-full me-2">
-                                    <label className="block text-gray-700">Facebook Profile</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Facebook Profile</label>
                                     <input
                                         type="text"
                                         name="facebook"
@@ -180,7 +209,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                     />
                                 </div>
                                 <div className="mb-4 w-full ms-2">
-                                    <label className="block text-gray-700">LinkedIn Profile</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">LinkedIn Profile</label>
                                     <input
                                         type="text"
                                         name="linkedin"
@@ -192,7 +221,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                             </div>
                             <div className="flex justify-between">
                                 <div className="mb-4 w-full me-2">
-                                    <label className="block text-gray-700">GitHub Profile</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">GitHub Profile</label>
                                     <input
                                         type="text"
                                         name="github"
@@ -202,7 +231,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                     />
                                 </div>
                                 <div className="mb-4 w-full ms-2">
-                                    <label className="block text-gray-700">Portfolio URL</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Portfolio URL</label>
                                     <input
                                         type="text"
                                         name="portfolio"
@@ -215,7 +244,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
 
                             
                             <div className="mb-4">
-                                <label className="block text-gray-700">Skills</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Skills</label>
                                 <input
                                     type="text"
                                     name="userSkills"
@@ -230,7 +259,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                     {section === 'projects' && (
                         <>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Project Name</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Project Name</label>
                                 <input
                                     type="text"
                                     name="projectName"
@@ -240,7 +269,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Project Link</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Project Link</label>
                                 <input
                                     type="text"
                                     name="projectUrl"
@@ -250,7 +279,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Project Description</label>
+                                <label className="block text-gray-700 dark:text-gray-200">Project Description</label>
                                 <textarea
                                     name="description"
                                     value={formData.description || ''}
@@ -260,7 +289,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                             </div>
                             <div className="flex justify-between">
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Start Date</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">Start Date</label>
                                     <input
                                         type="date"
                                         name="startDate"
@@ -270,7 +299,7 @@ const EditModal = ({ isOpen, section, closeModal, saveChanges, data }) => {
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">End Date</label>
+                                    <label className="block text-gray-700 dark:text-gray-200">End Date</label>
                                     <input
                                         type="date"
                                         name="endDate"
